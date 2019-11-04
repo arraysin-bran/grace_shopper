@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "fang_and_bone",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Come see ol' Kilton for the most monstrous deals in all of Hyrule!",
   "engines": {
     "node": ">= 7.0.0"
   },
