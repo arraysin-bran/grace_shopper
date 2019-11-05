@@ -3,6 +3,20 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -26,6 +40,24 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  address: {
+    type: Sequelize.STRING
+  },
+  imageURL: {
+    type: Sequelize.STRING,
+    defaultValue:
+      'https://gamepedia.cursecdn.com/zelda_gamepedia_en/0/08/OoT3D_Navi_Artwork.png?version=61b243ef9637615abdf7534b17361c7a'
+  },
+  isLoggedIn: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 })
 
