@@ -29,18 +29,18 @@ const clearCart = () => ({type: CLEAR_CART})
  * THUNK CREATORS
  */
 
-export const add = (userId, product) => async dispatch => {
+export const add = (userId, productId) => async dispatch => {
   try {
-    const res = await axios.post(`/api/users/${userId}/cart`, product)
+    const res = await axios.post(`/api/users/${userId}/cart`, productId)
     dispatch(addToCart(res))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const remove = (userId, product) => async dispatch => {
+export const remove = (userId, productId) => async dispatch => {
   try {
-    const res = await axios.delete(`/api/users/${userId}/cart/${product.id}`)
+    const res = await axios.delete(`/api/users/${userId}/cart/${productId}`)
     dispatch(removeFromCart(res.data))
   } catch (err) {
     console.error(err)
@@ -48,7 +48,7 @@ export const remove = (userId, product) => async dispatch => {
 }
 export const clear = userId => async dispatch => {
   try {
-    await axios.delete(`/api/users/${userId}/cart`)
+    await axios.post(`/api/users/${userId}/cart`)
     dispatch(clearCart())
   } catch (err) {
     console.error(err)
