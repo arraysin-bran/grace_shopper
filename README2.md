@@ -2,12 +2,12 @@ Tier 1 (MVP)
   Roles:
     guests (not signed in)
     users (signed in)
-    Deployed
-    All products view
-    Add to and edit cart
-    Checkout
-    Backend data validations
-    Rudiments of security
+  Deployed
+  All products view
+  Add to and edit cart
+  Checkout
+  Backend data validations
+  Rudiments of security
 Tier 2
   Really nice design
   Front-end data validations
