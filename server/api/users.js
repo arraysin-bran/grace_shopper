@@ -15,3 +15,41 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:userId', async (req, res, next) => {
+  const userId = req.params.userId
+  try {
+    const data = await User.findByPk(userId, {
+      attributes: ['id', 'firstName', 'lastName', 'email', 'address']
+    })
+    res.json(data)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// admin privilege!
+router.post('/', async (req, res, next) => {
+  try {
+    const data = await User.create(req.body)
+    res.json(data)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// admin privilege!
+router.delete('/:userId', async (req, res, next) => {
+  const userId = req.params.userId
+  try {
+    const user = await User.findByPk(userId)
+    if (user) {
+      await user.destroy()
+      res.status(204).send('User record was deleted')
+    } else {
+      res.status(404).send('User not found')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
