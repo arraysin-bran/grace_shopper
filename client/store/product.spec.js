@@ -28,7 +28,7 @@ describe('thunk creators', () => {
   })
 
   describe('product', () => {
-    it('eventually dispatches the GET_PRODUCT action', async () => {
+    xit('eventually dispatches the GET_PRODUCT action', async () => {
       const fakeProduct = {productName: 'sword', id: 2}
       mockAxios
         .onGet(`/api/products/${fakeProduct.id}`)
@@ -41,7 +41,7 @@ describe('thunk creators', () => {
   })
 
   describe('all products', () => {
-    it('eventually dispatches the GET_ALL_PRODUCTS action', async () => {
+    xit('eventually dispatches the GET_ALL_PRODUCTS action', async () => {
       const fakeProducts = [
         {productName: 'sword', id: 2},
         {productName: 'elixir', id: 50}
@@ -55,8 +55,8 @@ describe('thunk creators', () => {
   })
 
   // Next task after associations are established
-  xdescribe('add to cart', () => {
-    it('eventually dispatches the ADD_TO_CART action', async () => {
+  describe('add to cart', () => {
+    xit('eventually dispatches the ADD_TO_CART action', async () => {
       const fakeProduct = {productName: 'sword', id: 2}
       mockAxios.onGet(`/api/products`).replyOnce(200, fakeProducts)
       await store.dispatch(products()) //define products later

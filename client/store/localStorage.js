@@ -1,3 +1,6 @@
+// const localStorage = Window.localStorage
+// may need to define wondow
+
 export const loadCart = () => {
   try {
     const serializedState = localStorage.getItem('cart')

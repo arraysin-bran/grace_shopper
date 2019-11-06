@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// consider revising think names to fetch
 /**
  * ACTION TYPES
  */
@@ -21,7 +22,7 @@ const initialState = {
  * ACTION CREATORS
  */
 const showCart = () => ({type: SHOW_CART})
-const addToCart = product => ({type: ADD_TO_CART, currentProduct: product})
+const addToCart = product => ({type: ADD_TO_CART, product})
 const removeFromCart = product => ({type: REMOVE_FROM_CART, product})
 const clearCart = () => ({type: CLEAR_CART})
 
@@ -87,7 +88,7 @@ export const cart = () => dispatch => {
 /**
  * REDUCER
  */
-export default function(state = initialState, action) {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CART:
       return state.cart
@@ -104,3 +105,5 @@ export default function(state = initialState, action) {
       return state
   }
 }
+
+export default reducer
