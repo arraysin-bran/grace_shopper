@@ -39,7 +39,7 @@ describe('thunk creators', () => {
         ]
       }
       mockAxios
-        .onPost(`/api/users/cart`) // changed to a post to add to the api
+        .onPost(`/api/carts/${fakeUser.id}`) // changed to a post to add to the api
         .replyOnce(201, fakeProduct)
       await store.dispatch(add(fakeUser.id, fakeProduct))
       const actions = store.getActions()
@@ -62,7 +62,7 @@ describe('thunk creators', () => {
         ]
       }
       mockAxios
-        .onPost(`/api/users/${fakeUser.id}/${fakeProduct.id}`)
+        .onPost(`/api/carts/${fakeUser.id}/${fakeProduct.id}`)
         .replyOnce(204)
       await store.dispatch(remove(fakeUser.id, fakeProduct)) //define cart later
       const actions = store.getActions()
@@ -86,7 +86,7 @@ describe('thunk creators', () => {
           {productName: 'hat', id: 4}
         ]
       }
-      mockAxios.onPost(`/api/users/${fakeUser.id}/cart`).replyOnce(204)
+      mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(204)
       await store.dispatch(clear(fakeUser.id))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('CLEAR_CART')
@@ -107,9 +107,7 @@ describe('thunk creators', () => {
           {productName: 'hat', id: 4}
         ]
       }
-      mockAxios
-        .onGet(`/api/users/${fakeUser.id}/cart`)
-        .replyOnce(200, fakeUser.cart)
+      mockAxios.onGet(`/api/carts/${fakeUser.id}`).replyOnce(200, fakeUser.cart)
       await store.dispatch(cart(fakeUser.id)) //define cart later
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('SHOW_CART')
