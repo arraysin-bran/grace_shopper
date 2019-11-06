@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+// User Routes
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -20,7 +21,7 @@ router.get('/:userId', async (req, res, next) => {
   const userId = req.params.userId
   try {
     const data = await User.findByPk(userId, {
-      attributes: ['id', 'firstName', 'lastName', 'email', 'address']
+      attributes: ['id', 'firstName', 'lastName', 'email', 'address', 'cart']
     })
     res.json(data)
   } catch (error) {
@@ -53,3 +54,27 @@ router.delete('/:userId', async (req, res, next) => {
     next(error)
   }
 })
+
+// User Cart Routes
+router.get('/:userId/cart', async (req, res, next) => {
+  const userId = req.params.userId
+  try {
+    const data = await User.findByPk(userId, {
+      attributes: ['cart']
+    })
+    res.json(data)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:userId/cart', async (req, res, next) => {
+  try {
+    const data = await User.create(req.body)
+    res.json(data)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// app.use('/:userId', )
