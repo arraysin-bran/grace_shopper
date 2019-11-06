@@ -7,7 +7,7 @@ import product from './product'
 import cart from './cart'
 import {loadCart, saveCart} from './localStorage'
 
-const reducer = combineReducers({users: user, products: product, carts: cart})
+const reducer = combineReducers({user, products: product, carts: cart})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
