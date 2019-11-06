@@ -29,7 +29,7 @@ const getProducts = products => ({type: GET_ALL_PRODUCTS, products})
 export const product = productId => async dispatch => {
   try {
     const res = await axios.get(`/api/products/${productId}`)
-    dispatch(getProduct(res))
+    dispatch(getProduct(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -38,7 +38,7 @@ export const product = productId => async dispatch => {
 export const products = () => async dispatch => {
   try {
     const res = await axios.get(`/api/products`)
-    dispatch(getProducts(res))
+    dispatch(getProducts(res.data))
   } catch (err) {
     console.error(err)
   }
