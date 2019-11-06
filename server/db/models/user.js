@@ -8,22 +8,19 @@ const User = db.define('user', {
     allowNull: false,
     validate: {
       notEmpty: true
-    },
-    defaultValue: 'Guest'
+    }
   },
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true
-    },
-    defaultValue: 'Guest'
+    }
   },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false,
-    defaultValue: 'guest@guest.com'
+    allowNull: false
   },
   password: {
     type: Sequelize.STRING,
@@ -61,10 +58,6 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
-  },
-  cart: {
-    type: Sequelize.ARRAY(Sequelize.INTEGER),
-    defaultValue: []
   }
 })
 
