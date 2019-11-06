@@ -31,7 +31,7 @@ const clearCart = () => ({type: CLEAR_CART})
 
 export const add = (userId, productId) => async dispatch => {
   try {
-    const res = await axios.post(`/api/users/${userId}/cart`, productId)
+    const res = await axios.post(`/api/carts/${userId}`, productId)
     dispatch(addToCart(res))
   } catch (err) {
     console.error(err)
@@ -40,7 +40,7 @@ export const add = (userId, productId) => async dispatch => {
 
 export const remove = (userId, productId) => async dispatch => {
   try {
-    const res = await axios.delete(`/api/users/${userId}/cart/${productId}`)
+    const res = await axios.delete(`/api/carts/${userId}/${productId}`)
     dispatch(removeFromCart(res.data))
   } catch (err) {
     console.error(err)
@@ -48,7 +48,7 @@ export const remove = (userId, productId) => async dispatch => {
 }
 export const clear = userId => async dispatch => {
   try {
-    await axios.post(`/api/users/${userId}/cart`)
+    await axios.post(`/api/carts/${userId}`)
     dispatch(clearCart())
   } catch (err) {
     console.error(err)
@@ -56,7 +56,7 @@ export const clear = userId => async dispatch => {
 }
 export const cart = userId => async dispatch => {
   try {
-    const res = await axios.get(`/api/users/${userId}/cart`)
+    const res = await axios.get(`/api/carts/${userId}`)
     dispatch(showCart(res.data))
   } catch (err) {
     console.error(err)
