@@ -9,8 +9,12 @@ const Cart = db.define('cart', {
     }
   },
   status: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING, //Maybe bool/enum?
     defaultValue: 'Open'
+  },
+  order: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 })
 

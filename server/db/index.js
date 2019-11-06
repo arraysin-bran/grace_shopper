@@ -8,6 +8,6 @@ const Product = require('./models/product')
 const Cart = require('./models/cart')
 
 User.belongsToMany(Product, {through: Cart})
-Product.belongsTo(User, {through: Cart})
+Product.belongsToMany(User, {through: Cart})
 
 module.exports = db

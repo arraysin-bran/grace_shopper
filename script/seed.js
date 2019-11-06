@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product} = require('../server/db/models')
+const {User, Product, Cart} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -19,6 +19,24 @@ async function seed() {
       lastName: 'Dog',
       email: 'murphy@email.com',
       password: '123'
+    }),
+    User.create({
+      firstName: 'Mighty',
+      lastName: 'Cow',
+      email: 'mightycow@email.com',
+      password: 'rfuuife4u8'
+    }),
+    User.create({
+      firstName: 'Death',
+      lastName: 'Cultist',
+      email: 'deathly@email.com',
+      password: 'firefirefire'
+    }),
+    User.create({
+      firstName: 'Coolone',
+      lastName: 'Freeman',
+      email: 'freeone@email.com',
+      password: 'funnyahaha'
     })
   ])
 
@@ -34,11 +52,153 @@ async function seed() {
       price: 75,
       description: 'used to shoot small projectiles',
       category: 'weapon'
+    }),
+    Product.create({
+      name: 'wooden sword',
+      price: 35,
+      description: 'a branch!',
+      category: 'weapon'
+    }),
+    Product.create({
+      name: 'bright cloak',
+      price: 70,
+      description: 'it shimmers in the enemys eye',
+      category: 'defense'
+    }),
+    Product.create({
+      name: 'mushroom',
+      price: 5,
+      description: 'the ancients speak of its magic powers',
+      category: 'magic'
+    }),
+    Product.create({
+      name: 'violin spear',
+      price: 250,
+      description: 'magical notes pierce the cold hearts of your enemies',
+      category: 'weapon'
     })
+  ])
+
+  const carts = await Promise.all([
+    Cart.create({
+      userId: 1,
+      productId: 1,
+      quantity: 4,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 2,
+      quantity: 70,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 2,
+      productId: 1,
+      quantity: 10,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 2,
+      productId: 3,
+      quantity: 7,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 3,
+      productId: 4,
+      quantity: 1,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 3,
+      productId: 1,
+      quantity: 4,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 4,
+      productId: 1,
+      quantity: 1,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 4,
+      productId: 6,
+      quantity: 2,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 5,
+      productId: 6,
+      quantity: 10,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 3,
+      quantity: 10,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 4,
+      quantity: 10,
+      status: 'Open',
+      order: null
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 5,
+      quantity: 5000,
+      status: 'Open',
+      order: null
+    })
+
+    //CLOSED CARTS NEED ANOTHER TABLE FOREIGN
+    // Cart.create({
+    //   userId:1,
+    //   productId:5,
+    //   quantity: 45,
+    //   status: 'Closed',
+    //   order: 'F9OL50V'
+    // }),
+    // Cart.create({
+    //   userId:1,
+    //   productId:2,
+    //   quantity: 67,
+    //   status: 'Closed',
+    //   order: 'F9OL50V'
+    // }),
+    // Cart.create({
+    //   userId:1,
+    //   productId:3,
+    //   quantity: 8,
+    //   status: 'Closed',
+    //   order: 'F9OL50V'
+    // }),
+    // Cart.create({
+    //   userId:1,
+    //   productId:4,
+    //   quantity: 1,
+    //   status: 'Closed',
+    //   order: 'F9OL50V'
+    // })
   ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${products.length} products`)
+  console.log(`seeded ${carts.length} carts`)
   console.log(`seeded successfully`)
 }
 
