@@ -21,7 +21,7 @@ router.get('/:userId', async (req, res, next) => {
   const userId = req.params.userId
   try {
     const data = await User.findByPk(userId, {
-      attributes: ['id', 'firstName', 'lastName', 'email', 'address', 'cart']
+      attributes: ['id', 'firstName', 'lastName', 'email', 'address']
     })
     res.json(data)
   } catch (error) {
@@ -54,27 +54,3 @@ router.delete('/:userId', async (req, res, next) => {
     next(error)
   }
 })
-
-// User Cart Routes
-router.get('/:userId/cart', async (req, res, next) => {
-  const userId = req.params.userId
-  try {
-    const data = await User.findByPk(userId, {
-      attributes: ['cart']
-    })
-    res.json(data)
-  } catch (error) {
-    next(error)
-  }
-})
-
-router.post('/:userId/cart', async (req, res, next) => {
-  try {
-    const data = await User.create(req.body)
-    res.json(data)
-  } catch (error) {
-    next(error)
-  }
-})
-
-// app.use('/:userId', )
