@@ -84,84 +84,84 @@ async function seed() {
       userId: 1,
       productId: 1,
       quantity: 4,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 1,
       productId: 2,
       quantity: 70,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 2,
       productId: 1,
       quantity: 10,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 2,
       productId: 3,
       quantity: 7,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 3,
       productId: 4,
       quantity: 1,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 3,
       productId: 1,
       quantity: 4,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 4,
       productId: 1,
       quantity: 1,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 4,
       productId: 6,
       quantity: 2,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 5,
       productId: 6,
       quantity: 10,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 1,
       productId: 3,
       quantity: 10,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 1,
       productId: 4,
       quantity: 10,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
     Cart.create({
       userId: 1,
       productId: 5,
       quantity: 5000,
-      status: 'Open',
+      status: 'OPEN',
       order: null
     }),
 
@@ -170,28 +170,28 @@ async function seed() {
       userId: 1,
       productId: 5,
       quantity: 45,
-      status: 'Closed',
+      status: 'CLOSED',
       order: 'F9OL50V'
     }),
     Cart.create({
       userId: 1,
       productId: 2,
       quantity: 67,
-      status: 'Closed',
+      status: 'CLOSED',
       order: 'F9OL50V'
     }),
     Cart.create({
       userId: 1,
       productId: 3,
       quantity: 8,
-      status: 'Closed',
+      status: 'CLOSED',
       order: 'F9OL50V'
     }),
     Cart.create({
       userId: 1,
       productId: 4,
       quantity: 1,
-      status: 'Closed',
+      status: 'CLOSED',
       order: 'F9OL50V'
     })
   ])
@@ -215,7 +215,7 @@ async function runSeed() {
   } finally {
     console.log('closing db connection')
     await db.close()
-    console.log('db connection closed')
+    console.log('db connection CLOSED')
   }
 }
 

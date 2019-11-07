@@ -12,13 +12,13 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-//GET open cart of userId (open only)
+//GET OPEN cart of userId (OPEN only)
 router.get('/:userId', async (req, res, next) => {
   try {
     const data = await Cart.findAll({
       where: {
-        userId: req.params.userId
-        // status: 'Open'
+        userId: req.params.userId,
+        status: 'OPEN'
       }
     })
     res.json(data)
@@ -33,7 +33,7 @@ router.post('/:userId/:productId', async (req, res, next) => {
     //deconstruct req.body then create
     const data = await Cart.create({
       quantity: 1,
-      status: 'Open',
+      status: 'OPEN',
       userId: req.params.userId,
       productId: req.params.productId
     })
@@ -43,20 +43,26 @@ router.post('/:userId/:productId', async (req, res, next) => {
   }
 })
 
-//PUT:EDIT product in cart
+//PUT:EDIT quantity of product in cart
 router.put('/:userId/:productId', async (req, res, next) => {
   try {
     let product = await Cart.findOne({
       where: {
         userId: req.params.userId,
         productId: req.params.productId,
-        status: 'Open'
+        status: 'OPEN'
       }
     })
+    if (req.body.quantity >= 5000) {
+      throw new Error('Max quanity exceeded. Please contact support.') // Security? discuss with team
+    }
+    if (typeof req.body.quantity != 'number' || req.body.quantity < 1) {
+      throw new Error('Quantity must be a number greater than 1')
+    }
     if (product) {
       product.quantity = req.body.quantity
+      res.status(201).send(product)
     }
-    res.status(201).send(product)
   } catch (error) {
     next(error)
   }
@@ -70,7 +76,7 @@ router.delete('/:userId/:productId', async (req, res, next) => {
       where: {
         userId: req.params.userId,
         productId: req.params.productId,
-        status: 'Open'
+        status: 'OPEN'
       }
     })
     if (product) {
@@ -84,21 +90,21 @@ router.delete('/:userId/:productId', async (req, res, next) => {
   }
 })
 
-//DELETE ALL users open products from Cart
+//DELETE ALL users OPEN products from Cart
 router.delete('/:userId', async (req, res, next) => {
   const id = req.params.userId
   try {
     const cart = await Cart.findAll({
       where: {
         userId: id,
-        status: 'Open'
+        status: 'OPEN'
       }
     })
     if (cart) {
       for (let i = 0; i < cart.length; i++) await cart[i].destroy()
-      res.send(204)
+      res.sendStatus(204)
     } else {
-      res.status(404).send('Product not found')
+      res.sendStatus(404)
     }
   } catch (error) {
     next(error)
