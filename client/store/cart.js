@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// consider revising think names to fetch
 /**
  * ACTION TYPES
  */
@@ -20,8 +21,8 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const showCart = cart => ({type: SHOW_CART, cart})
-const addToCart = product => ({type: ADD_TO_CART, currentProduct: product})
+const showCart = () => ({type: SHOW_CART})
+const addToCart = product => ({type: ADD_TO_CART, product})
 const removeFromCart = product => ({type: REMOVE_FROM_CART, product})
 const clearCart = () => ({type: CLEAR_CART})
 
@@ -29,35 +30,58 @@ const clearCart = () => ({type: CLEAR_CART})
  * THUNK CREATORS
  */
 
-export const add = (userId, productId) => async dispatch => {
+// get the local storage
+
+export const add = (productId, userId) => async dispatch => {
+  console.log('redux add')
   try {
-    const res = await axios.post(`/api/carts/${userId}`, productId)
-    dispatch(addToCart(res))
+    if (!userId) {
+      //localStorage
+      const product = await axios.get(`/api/products/${productId}`) // may need to {product}
+      dispatch(addToCart(product))
+    } else {
+      // user cart
+      const res = await axios.post(`/api/carts/${userId}`, productId)
+      dispatch(addToCart(res.data))
+    }
   } catch (err) {
     console.error(err)
   }
 }
 
-export const remove = (userId, productId) => async dispatch => {
+export const remove = (productId, userId) => async dispatch => {
+  console.log('redux console')
   try {
-    const res = await axios.delete(`/api/carts/${userId}/${productId}`)
-    dispatch(removeFromCart(res.data))
+    if (!userId) {
+      //localStorage
+      const product = await axios.get(`/api/products/${productId}`)
+      dispatch(removeFromCart(product))
+    } else {
+      // const res = await axios.delete(`/api/carts/${userId}/${productId}`)
+      dispatch(removeFromCart({productName: 'sword', id: 2}))
+    }
   } catch (err) {
     console.error(err)
   }
 }
 export const clear = userId => async dispatch => {
   try {
-    await axios.post(`/api/carts/${userId}`)
-    dispatch(clearCart())
+    if (!userId) {
+      //localStorage
+      dispatch(clearCart())
+    } else {
+      await axios.post(`/api/carts/${userId}`)
+      dispatch(clearCart())
+    }
   } catch (err) {
     console.error(err)
   }
 }
-export const cart = userId => async dispatch => {
+export const cart = () => dispatch => {
   try {
-    const res = await axios.get(`/api/carts/${userId}`)
-    dispatch(showCart(res.data))
+    dispatch(showCart())
+    // const res = await axios.get(`/api/carts/${userId}`)
+    // dispatch(showCart(res.data))
   } catch (err) {
     console.error(err)
   }
@@ -66,10 +90,13 @@ export const cart = userId => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = initialState, action) {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CART:
-      return {...state, cart: action.cart}
+      return state.cart
+    case ADD_TO_CART:
+      console.log('getting to the add action')
+      return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
       return {
         ...state,
@@ -77,9 +104,9 @@ export default function(state = initialState, action) {
       }
     case CLEAR_CART:
       return {...state, cart: []}
-    case ADD_TO_CART:
-      return {...state, cart: [...state.cart, action.product]}
     default:
       return state
   }
 }
+
+export default reducer
