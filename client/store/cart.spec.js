@@ -27,18 +27,18 @@ const fakeUser = {
 
 const initialState = {cart: [], currentProduct: {}}
 
-const newState = reducer(initialState, {
-  type: 'ADD_TO_CART',
-  product: fakeProduct
-})
-
 describe('thunk creators', () => {
   let store
   let mockAxios
+  let newState
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
     store = mockStore(initialState)
+    newState = reducer(initialState, {
+      type: 'ADD_TO_CART',
+      product: fakeProduct
+    })
   })
 
   afterEach(() => {
@@ -47,28 +47,47 @@ describe('thunk creators', () => {
   })
 
   describe('add to cart', () => {
-    it('adds a product to a users cart', async () => {
-      mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(201, fakeProduct)
-      await store.dispatch(add(fakeProduct.id, fakeUser.id))
-      const actions = store.getActions()
-      console.log('add', actions)
-      expect(actions[0].type).to.be.equal('ADD_TO_CART')
+    it('adds a product to a users cart', () => {
       expect(newState.cart).to.include(fakeProduct)
     })
 
-    it('adds a product to a guest cart', async () => {
+    it('deploys the ADD_TO_CART action for a user', async () => {
+      mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(201, fakeProduct)
+      await store.dispatch(add(fakeProduct.id, fakeUser.id))
+      const actions = store.getActions()
+      expect(actions[0].type).to.be.equal('ADD_TO_CART')
+    })
+
+    it('adds a product to a guest cart', () => {
+      expect(newState.cart).to.include(fakeProduct)
+    })
+
+    it('deploys the ADD_TO_CART action for a guest', async () => {
       mockAxios
         .onGet(`/api/products/${fakeProduct.id}`)
         .replyOnce(200, fakeProduct)
       await store.dispatch(add(fakeProduct.id))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('ADD_TO_CART')
-      expect(newState.cart).to.include(fakeProduct)
     })
   })
 
   describe('remove from cart', () => {
-    it('removes item from user cart', async () => {
+    it('removes item from user cart', () => {
+      expect(newState.cart.length).to.be.equal(1)
+      newState = reducer(newState, {
+        type: 'ADD_TO_CART',
+        product: fakeProduct2
+      })
+      expect(newState.cart.length).to.be.equal(2)
+      const removedState = reducer(newState, {
+        type: 'REMOVE_FROM_CART',
+        product: fakeProduct
+      })
+      expect(removedState.cart.length).to.be.equal(1)
+    })
+
+    xit('removes item from user cart', async () => {
       mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(201, fakeProduct)
       await store.dispatch(add(fakeProduct.id, fakeUser.id))
       expect(newState.cart.length).to.be.equal(1)

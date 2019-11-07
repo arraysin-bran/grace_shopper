@@ -33,6 +33,7 @@ const clearCart = () => ({type: CLEAR_CART})
 // get the local storage
 
 export const add = (productId, userId) => async dispatch => {
+  console.log('redux add')
   try {
     if (!userId) {
       //localStorage
@@ -49,14 +50,15 @@ export const add = (productId, userId) => async dispatch => {
 }
 
 export const remove = (productId, userId) => async dispatch => {
+  console.log('redux console')
   try {
     if (!userId) {
       //localStorage
       const product = await axios.get(`/api/products/${productId}`)
       dispatch(removeFromCart(product))
     } else {
-      const res = await axios.delete(`/api/carts/${userId}/${productId}`)
-      dispatch(removeFromCart(res.data))
+      // const res = await axios.delete(`/api/carts/${userId}/${productId}`)
+      dispatch(removeFromCart({productName: 'sword', id: 2}))
     }
   } catch (err) {
     console.error(err)
@@ -92,6 +94,9 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CART:
       return state.cart
+    case ADD_TO_CART:
+      console.log('getting to the add action')
+      return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
       return {
         ...state,
@@ -99,8 +104,6 @@ const reducer = (state = initialState, action) => {
       }
     case CLEAR_CART:
       return {...state, cart: []}
-    case ADD_TO_CART:
-      return {...state, cart: [...state.cart, action.product]}
     default:
       return state
   }
