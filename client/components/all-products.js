@@ -9,7 +9,6 @@ class AllProducts extends Component {
   }
 
   render() {
-    console.log('Products passed to All Products:', this.props.products)
     return (
       <div id="products">
         <div className="products-header">
