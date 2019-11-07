@@ -1,3 +1,6 @@
+// all x'ed tests are an issue with checking dispatches from store.getAction,
+// refer to issue #38 for direction
+
 import {expect} from 'chai'
 import reducer, {cart, add, remove, clear} from './cart'
 import axios from 'axios'
@@ -47,22 +50,18 @@ describe('thunk creators', () => {
   })
 
   describe('add to cart', () => {
-    it('adds a product to a users cart', () => {
+    it('adds a product to a users/guest cart', () => {
       expect(newState.cart).to.include(fakeProduct)
     })
 
-    it('deploys the ADD_TO_CART action for a user', async () => {
+    it('dispatch the ADD_TO_CART action for a user', async () => {
       mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(201, fakeProduct)
       await store.dispatch(add(fakeProduct.id, fakeUser.id))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('ADD_TO_CART')
     })
 
-    it('adds a product to a guest cart', () => {
-      expect(newState.cart).to.include(fakeProduct)
-    })
-
-    it('deploys the ADD_TO_CART action for a guest', async () => {
+    it('dispatch the ADD_TO_CART action for a guest', async () => {
       mockAxios
         .onGet(`/api/products/${fakeProduct.id}`)
         .replyOnce(200, fakeProduct)
@@ -73,7 +72,7 @@ describe('thunk creators', () => {
   })
 
   describe('remove from cart', () => {
-    it('removes item from user cart', () => {
+    it('removes item from user/guest cart', () => {
       expect(newState.cart.length).to.be.equal(1)
       newState = reducer(newState, {
         type: 'ADD_TO_CART',
@@ -87,7 +86,7 @@ describe('thunk creators', () => {
       expect(removedState.cart.length).to.be.equal(1)
     })
 
-    xit('removes item from user cart', async () => {
+    xit('dispatch REMOVE_FROM_CART for user', async () => {
       mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(201, fakeProduct)
       await store.dispatch(add(fakeProduct.id, fakeUser.id))
       expect(newState.cart.length).to.be.equal(1)
@@ -101,7 +100,7 @@ describe('thunk creators', () => {
       expect(newState.cart.length).to.be.equal(0) // expect the remove from cart to only remove one of the items if many are added
     })
 
-    xit('removes item from guest cart', async () => {
+    xit('dispatches REMOVE_FROM_CART for guest', async () => {
       mockAxios
         .onGet(`/api/products/${fakeProduct.id}`)
         .replyOnce(200, fakeProduct)
@@ -118,14 +117,26 @@ describe('thunk creators', () => {
   })
 
   describe('clear cart', () => {
-    xit('clears a users cart', async () => {
+    it('clears a users/guest cart', () => {
+      expect(newState.cart.length).to.be.equal(1)
+      newState = reducer(newState, {
+        type: 'ADD_TO_CART',
+        product: fakeProduct2
+      })
+      expect(newState.cart.length).to.be.equal(2)
+      const clearedState = reducer(newState, {
+        type: 'CLEAR_CART'
+      })
+      expect(clearedState.cart.length).to.be.equal(0)
+    })
+    xit('dispatches CLEAR_CART for a user', async () => {
       mockAxios.onPost(`/api/carts/${fakeUser.id}`).replyOnce(201)
       await store.dispatch(clear(fakeUser.id))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('CLEAR_CART')
       expect(newState.cart.length).to.be.equal(0)
     })
-    xit('clears a guests cart', async () => {
+    xit('dispatches CLEAR_CART for a guest', async () => {
       await store.dispatch(clear())
       const state = store.getState()
       const actions = store.getActions()
@@ -136,7 +147,20 @@ describe('thunk creators', () => {
   })
 
   describe('show cart', () => {
-    xit('shows a users cart', async () => {
+    it('shows a users/guest cart', () => {
+      expect(newState.cart.length).to.be.equal(1)
+      newState = reducer(newState, {
+        type: 'ADD_TO_CART',
+        product: fakeProduct2
+      })
+      expect(newState.cart.length).to.be.equal(2)
+      const cartState = reducer(newState, {
+        type: 'SHOW_CART'
+      })
+      expect(cartState).to.be.deep.equal(newState.cart)
+    })
+
+    xit('dispatches SHOW_CART for a user', async () => {
       mockAxios
         .onGet(`/api/products/${fakeProduct.id}`)
         .replyOnce(200, fakeProduct)
@@ -152,7 +176,7 @@ describe('thunk creators', () => {
       expect(state.cart).to.be.deep.equal([fakeProduct, fakeProduct2])
     })
 
-    xit('shows a guest cart', async () => {
+    xit('dispatches SHOW_CART for a guest', async () => {
       mockAxios
         .onGet(`/api/products/${fakeProduct.id}`)
         .replyOnce(200, fakeProduct)
