@@ -17,8 +17,8 @@ router.get('/:userId', async (req, res, next) => {
   try {
     const data = await Cart.findAll({
       where: {
-        userId: req.params.userId,
-        status: 'Open'
+        userId: req.params.userId
+        // status: 'Open'
       }
     })
     res.json(data)

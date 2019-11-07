@@ -163,37 +163,37 @@ async function seed() {
       quantity: 5000,
       status: 'Open',
       order: null
-    })
+    }),
 
     //CLOSED CARTS NEED ANOTHER TABLE FOREIGN
-    // Cart.create({
-    //   userId:1,
-    //   productId:5,
-    //   quantity: 45,
-    //   status: 'Closed',
-    //   order: 'F9OL50V'
-    // }),
-    // Cart.create({
-    //   userId:1,
-    //   productId:2,
-    //   quantity: 67,
-    //   status: 'Closed',
-    //   order: 'F9OL50V'
-    // }),
-    // Cart.create({
-    //   userId:1,
-    //   productId:3,
-    //   quantity: 8,
-    //   status: 'Closed',
-    //   order: 'F9OL50V'
-    // }),
-    // Cart.create({
-    //   userId:1,
-    //   productId:4,
-    //   quantity: 1,
-    //   status: 'Closed',
-    //   order: 'F9OL50V'
-    // })
+    Cart.create({
+      userId: 1,
+      productId: 5,
+      quantity: 45,
+      status: 'Closed',
+      order: 'F9OL50V'
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 2,
+      quantity: 67,
+      status: 'Closed',
+      order: 'F9OL50V'
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 3,
+      quantity: 8,
+      status: 'Closed',
+      order: 'F9OL50V'
+    }),
+    Cart.create({
+      userId: 1,
+      productId: 4,
+      quantity: 1,
+      status: 'Closed',
+      order: 'F9OL50V'
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
