@@ -57,8 +57,8 @@ export const remove = (productId, userId) => async dispatch => {
       const product = await axios.get(`/api/products/${productId}`)
       dispatch(removeFromCart(product))
     } else {
-      // const res = await axios.delete(`/api/carts/${userId}/${productId}`)
-      dispatch(removeFromCart({productName: 'sword', id: 2}))
+      const res = await axios.delete(`/api/carts/${userId}/${productId}`)
+      dispatch(removeFromCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -80,8 +80,6 @@ export const clear = userId => async dispatch => {
 export const cart = () => dispatch => {
   try {
     dispatch(showCart())
-    // const res = await axios.get(`/api/carts/${userId}`)
-    // dispatch(showCart(res.data))
   } catch (err) {
     console.error(err)
   }
