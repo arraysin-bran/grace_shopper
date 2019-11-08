@@ -4,10 +4,17 @@ import {add, remove, clear, cart} from '../store/cart'
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.fetchCart()
+    this.props.showCart() //do we need this?
   }
 
   render() {
+    let cartItems
+    if (this.props.cart) {
+      cartItems = this.props.cart
+    } else {
+      cartItems = []
+    }
+    console.log('cartItems: ', cartItems)
     return (
       <div>
         <ul>
@@ -16,9 +23,18 @@ class Cart extends Component {
           <li>
             remove item from cart (x button or decreasing quantity to zero)
           </li>
-          <li>clear cart button</li>
-          <li>checkout button</li>
         </ul>
+        {cartItems.map(item => {
+          return (
+            <div key={item.id}>
+              <div>{item.name}</div>
+            </div>
+          )
+        })}
+        <form>
+          <button type="button">Clear Cart</button>
+          <button type="submit">Checkout</button>
+        </form>
       </div>
     )
   }
@@ -36,7 +52,7 @@ const mapDispatchToProps = dispatch => {
     addProduct: (productId, userId) => dispatch(add(productId, userId)),
     removeProduct: (productId, userId) => dispatch(remove(productId, userId)),
     clearCart: userId => dispatch(clear(userId)),
-    fetchCart: () => dispatch(cart())
+    showCart: () => dispatch(cart())
   }
 }
 
