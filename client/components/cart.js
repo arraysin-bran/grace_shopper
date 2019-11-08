@@ -8,12 +8,8 @@ class Cart extends Component {
   }
 
   render() {
-    let cartItems
-    if (this.props.cart) {
-      cartItems = this.props.cart
-    } else {
-      cartItems = []
-    }
+    let cartItems = this.props.cart
+
     console.log('cartItems: ', cartItems)
     return (
       <div>
