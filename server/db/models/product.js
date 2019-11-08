@@ -4,8 +4,7 @@ const db = require('../db')
 const Product = db.define('product', {
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue:
-      'https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjA0oTazNPlAhWOjVkKHWS9AlsQjRx6BAgBEAQ&url=https%3A%2F%2Fzelda.gamepedia.com%2FRupee&psig=AOvVaw06BHBA-7GoYbyMWc897BrM&ust=1573061442491189' //add an images folder and update this value
+    defaultValue: 'images/rupee.png'
   },
   name: {
     type: Sequelize.STRING,

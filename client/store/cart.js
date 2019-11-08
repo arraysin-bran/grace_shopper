@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// consider revising think names to fetch
+// consider revising thunk names
 /**
  * ACTION TYPES
  */
@@ -29,8 +29,6 @@ const clearCart = () => ({type: CLEAR_CART})
 /**
  * THUNK CREATORS
  */
-
-// get the local storage
 
 export const add = (productId, userId) => async dispatch => {
   console.log('redux add')
@@ -84,7 +82,6 @@ export const cart = () => dispatch => {
     console.error(err)
   }
 }
-// had to user user cart because cart is defined as a function and there was a scope confluct
 /**
  * REDUCER
  */
@@ -93,7 +90,6 @@ const reducer = (state = initialState, action) => {
     case SHOW_CART:
       return state.cart
     case ADD_TO_CART:
-      console.log('getting to the add action')
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
       return {
