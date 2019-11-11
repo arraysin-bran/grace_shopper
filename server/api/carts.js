@@ -83,7 +83,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
 
 //DELETE:REMOVE product from cart
 router.delete('/:userId/:productId', async (req, res, next) => {
-  //not sure how to work this yet
   try {
     let product = await Cart.findOne({
       where: {

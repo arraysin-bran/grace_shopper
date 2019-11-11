@@ -11,7 +11,7 @@ describe('Cart routes', () => {
     return db.sync({force: true})
   })
   //*****************************************************************************************/
-  describe.only('/api/carts/', () => {
+  describe('/api/carts/', () => {
     beforeEach(() => {
       User.create({
         firstName: 'Cody',

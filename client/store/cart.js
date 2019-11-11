@@ -51,7 +51,6 @@ export const remove = (productId, userId) => async dispatch => {
   console.log('redux console')
   try {
     if (!userId) {
-      //localStorage
       const product = await axios.get(`/api/products/${productId}`)
       dispatch(removeFromCart(product))
     } else {
@@ -65,10 +64,9 @@ export const remove = (productId, userId) => async dispatch => {
 export const clear = userId => async dispatch => {
   try {
     if (!userId) {
-      //localStorage
       dispatch(clearCart())
     } else {
-      await axios.post(`/api/carts/${userId}`)
+      await axios.delete(`/api/carts/${userId}`)
       dispatch(clearCart())
     }
   } catch (err) {
