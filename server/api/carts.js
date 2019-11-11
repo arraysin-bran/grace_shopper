@@ -30,14 +30,27 @@ router.get('/:userId', async (req, res, next) => {
 //POST:ADD product to cart
 router.post('/:userId/:productId', async (req, res, next) => {
   try {
-    //deconstruct req.body then create
-    const data = await Cart.create({
-      quantity: 1,
-      status: 'OPEN',
-      userId: req.params.userId,
-      productId: req.params.productId
+    //try to find item in cart first
+    let productInCart = await Cart.findOne({
+      where: {
+        status: 'OPEN',
+        userId: req.params.userId,
+        productId: req.params.productId
+      }
     })
-    res.json(data)
+    //if not in cart, create it
+    if (!productInCart) {
+      const data = await Cart.create({
+        quantity: 1,
+        status: 'OPEN',
+        userId: req.params.userId,
+        productId: req.params.productId
+      })
+      res.json(data)
+    } else {
+      productInCart.quantity += 1
+      res.json(productInCart)
+    }
   } catch (error) {
     next(error)
   }

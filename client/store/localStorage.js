@@ -1,4 +1,4 @@
-//const localStorage = Window.localStorage
+// const localStorage = window.localStorage
 // may need to define wondow
 
 export const loadCart = () => {

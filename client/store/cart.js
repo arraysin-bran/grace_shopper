@@ -15,7 +15,7 @@ const SHOW_CART = 'SHOW_CART'
 
 const initialState = {
   cart: [],
-  currentProduct: {} 
+  currentProduct: {}
 }
 
 /**
@@ -30,17 +30,16 @@ const clearCart = () => ({type: CLEAR_CART})
  * THUNK CREATORS
  */
 
-export const add = (productId, userId) => async dispatch => {
+export const add = (productId, userId, loggedIn = false) => async dispatch => {
   console.log('redux add')
   try {
-    if (!userId) {
+    if (!loggedIn) {
       //localStorage
-
       const product = await axios.get(`/api/products/${productId}`) // may need to {product}
       dispatch(addToCart(product))
     } else {
       // user cart
-      const res = await axios.post(`/api/carts/${userId}`, productId)
+      const res = await axios.post(`/api/carts/${userId}/${productId}`)
       dispatch(addToCart(res.data))
     }
   } catch (err) {
