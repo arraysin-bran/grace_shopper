@@ -89,7 +89,7 @@ export const cart = () => dispatch => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CART:
-      {...state, cart: [...cart]}
+      {...state}
     case ADD_TO_CART:
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
