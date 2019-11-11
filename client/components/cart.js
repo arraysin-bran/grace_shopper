@@ -2,35 +2,30 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {add, remove, clear, cart} from '../store/cart'
 
+/*
+list of items - clicking image or tile links to item
+increase/decrease quantity of each item
+remove item from cart (x button or decreasing quantity to zero)
+*/
+
 class Cart extends Component {
   componentDidMount() {
     this.props.showCart() //do we need this?
   }
 
   render() {
-    let cartItems
-    if (this.props.cart) {
-      cartItems = this.props.cart
-    } else {
-      cartItems = []
-    }
+    let cartItems = this.props.cart
+
     console.log('cartItems: ', cartItems)
     return (
       <div>
         <ul>
-          <li>list of items - clicking image or tile links to item</li>
-          <li>increase/decrease quantity of each item</li>
-          <li>
-            remove item from cart (x button or decreasing quantity to zero)
-          </li>
+          {cartItems
+            ? cartItems.map(item => {
+                return <li key={item.id}>{item.name}</li>
+              })
+            : 'Your cart is empty'}
         </ul>
-        {cartItems.map(item => {
-          return (
-            <div key={item.id}>
-              <div>{item.name}</div>
-            </div>
-          )
-        })}
         <form>
           <button type="button">Clear Cart</button>
           <button type="submit">Checkout</button>
