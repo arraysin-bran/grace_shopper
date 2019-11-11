@@ -15,7 +15,7 @@ const SHOW_CART = 'SHOW_CART'
 
 const initialState = {
   cart: [],
-  currentProduct: {} 
+  currentProduct: {}
 }
 
 /**
@@ -31,15 +31,13 @@ const clearCart = () => ({type: CLEAR_CART})
  */
 
 export const add = (productId, userId) => async dispatch => {
-  console.log('redux add')
   try {
     if (!userId) {
-      //localStorage
-
-      const product = await axios.get(`/api/products/${productId}`) // may need to {product}
+      // guest cart in local storage
+      const product = await axios.get(`/api/products/${productId}`)
       dispatch(addToCart(product))
     } else {
-      // user cart
+      // user cart on server
       const res = await axios.post(`/api/carts/${userId}`, productId)
       dispatch(addToCart(res.data))
     }
@@ -52,7 +50,6 @@ export const remove = (productId, userId) => async dispatch => {
   console.log('redux console')
   try {
     if (!userId) {
-      //localStorage
       const product = await axios.get(`/api/products/${productId}`)
       dispatch(removeFromCart(product))
     } else {
@@ -66,10 +63,9 @@ export const remove = (productId, userId) => async dispatch => {
 export const clear = userId => async dispatch => {
   try {
     if (!userId) {
-      //localStorage
       dispatch(clearCart())
     } else {
-      await axios.post(`/api/carts/${userId}`)
+      await axios.delete(`/api/carts/${userId}`)
       dispatch(clearCart())
     }
   } catch (err) {
