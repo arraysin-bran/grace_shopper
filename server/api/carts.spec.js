@@ -293,7 +293,7 @@ describe('Cart routes', () => {
       expect(res.body).to.not.contain(delProd)
     })
     //*****************************************************************************************/
-    it('DELETE /api/carts/:userId', async () => {
+    it.ony('DELETE /api/carts/:userId', async () => {
       let userId = 1
       let res = await request(app)
         .delete(`/api/carts/${userId}`)

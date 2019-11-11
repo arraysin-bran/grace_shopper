@@ -5,8 +5,8 @@ module.exports = router
 //GET All Carts (all statuses)
 router.get('/', async (req, res, next) => {
   try {
-    const users = await Cart.findAll()
-    res.json(users)
+    const carts = await Cart.findAll()
+    res.json(carts)
   } catch (err) {
     next(err)
   }
@@ -41,23 +41,67 @@ router.post('/:userId/:productId', async (req, res, next) => {
     //if not in cart, create it
     if (!productInCart) {
       const data = await Cart.create({
-        quantity: 1,
         status: 'OPEN',
         userId: req.params.userId,
         productId: req.params.productId
       })
       res.json(data)
     } else {
-      productInCart.quantity += 1
-      res.json(productInCart)
+      throw new Error('Product already in cart.')
     }
   } catch (error) {
     next(error)
   }
 })
 
-//PUT:EDIT quantity of product in cart
-router.put('/:userId/:productId', async (req, res, next) => {
+// inc quantity
+router.put('/:userId/add/:productId', async (req, res, next) => {
+  try {
+    //try to find item in cart first
+    let productInCart = await Cart.findOne({
+      where: {
+        status: 'OPEN',
+        userId: req.params.userId,
+        productId: req.params.productId
+      }
+    })
+    //if not in cart, create it
+    if (productInCart) {
+      productInCart.increment('quantity', {by: 1})
+      res.json(productInCart)
+    } else {
+      throw new Error('Product not in cart')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+// decrement quantity
+router.put('/:userId/remove/:productId', async (req, res, next) => {
+  try {
+    //try to find item in cart first
+    let productInCart = await Cart.findOne({
+      where: {
+        status: 'OPEN',
+        userId: req.params.userId,
+        productId: req.params.productId
+      }
+    })
+    //if not in cart, create it
+    if (productInCart) {
+      productInCart.decrement('quantity', {by: 1})
+      res.json(productInCart)
+    } else {
+      throw new Error('Product not in cart')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+//PUT:DIRECTLY EDIT quantity of product in cart
+router.put('/:userId/input/:productId', async (req, res, next) => {
   try {
     let product = await Cart.findOne({
       where: {
@@ -102,22 +146,16 @@ router.delete('/:userId/:productId', async (req, res, next) => {
   }
 })
 
-//DELETE ALL users OPEN products from Cart
+//DELETE ALL user's OPEN products from Cart
 router.delete('/:userId', async (req, res, next) => {
-  const id = req.params.userId
   try {
-    const cart = await Cart.findAll({
+    await Cart.destroy({
       where: {
-        userId: id,
+        userId: req.params.userId,
         status: 'OPEN'
       }
     })
-    if (cart) {
-      for (let i = 0; i < cart.length; i++) await cart[i].destroy()
-      res.sendStatus(204)
-    } else {
-      res.sendStatus(404)
-    }
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }
