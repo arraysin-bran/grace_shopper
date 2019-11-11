@@ -15,7 +15,7 @@ const SHOW_CART = 'SHOW_CART'
 
 const initialState = {
   cart: [],
-  currentProduct: {} // do we need this?
+  currentProduct: {} 
 }
 
 /**
