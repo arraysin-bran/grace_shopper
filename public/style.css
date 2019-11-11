@@ -19,3 +19,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+img {
+  border: 1px none #ddd;
+  border-radius: 4px;
+  padding: 1px;
+  width: 50px;
+  height: 75px;
+}

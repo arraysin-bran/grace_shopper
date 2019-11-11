@@ -15,7 +15,7 @@ const SHOW_CART = 'SHOW_CART'
 
 const initialState = {
   cart: [],
-  currentProduct: {}
+  currentProduct: {} 
 }
 
 /**
@@ -35,6 +35,7 @@ export const add = (productId, userId) => async dispatch => {
   try {
     if (!userId) {
       //localStorage
+
       const product = await axios.get(`/api/products/${productId}`) // may need to {product}
       dispatch(addToCart(product))
     } else {
@@ -88,7 +89,7 @@ export const cart = () => dispatch => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOW_CART:
-      return state.cart
+      return {...state}
     case ADD_TO_CART:
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
