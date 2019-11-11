@@ -30,7 +30,6 @@ router.get('/:userId', async (req, res, next) => {
 //POST:ADD product to cart
 router.post('/:userId/:productId', async (req, res, next) => {
   try {
-    //deconstruct req.body then create
     const data = await Cart.create({
       quantity: 1,
       status: 'OPEN',
@@ -70,7 +69,6 @@ router.put('/:userId/:productId', async (req, res, next) => {
 
 //DELETE:REMOVE product from cart
 router.delete('/:userId/:productId', async (req, res, next) => {
-  //not sure how to work this yet
   try {
     let product = await Cart.findOne({
       where: {

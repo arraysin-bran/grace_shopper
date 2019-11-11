@@ -10,7 +10,7 @@ remove item from cart (x button or decreasing quantity to zero)
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.showCart() //do we need this?
+    this.props.showCart()
   }
 
   render() {
