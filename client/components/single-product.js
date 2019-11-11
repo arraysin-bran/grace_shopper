@@ -28,7 +28,7 @@ export class SingleProduct extends Component {
           </div>
           <div id="product-header-right">
             <div id="product-price-row">
-              <div>{currentProduct.price}</div>
+              <div>${currentProduct.price}</div>
               <div>Cost</div>
             </div>
             <div id="product-qty-row">
