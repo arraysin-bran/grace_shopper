@@ -20,7 +20,7 @@ export class SingleProduct extends Component {
           </div>
           <div id="product-header-right">
             <div id="product-price-row">
-              <div>${currentProduct.price}</div>
+              <div>{currentProduct.price}</div>
               <div>Cost</div>
             </div>
             <div id="product-qty-row">
@@ -28,7 +28,8 @@ export class SingleProduct extends Component {
               <div>Quantity</div>
             </div>
             <div id="product-change-qty-row">
-              <button type="button">Add to Cart</button>
+              <button type="button">+</button>
+              <button type="button">-</button>
             </div>
           </div>
         </div>
