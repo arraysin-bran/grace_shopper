@@ -49,10 +49,17 @@ export const products = () => async dispatch => {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_PRODUCT:
+    case GET_PRODUCT: {
+      action.product.price = (action.product.price / 100).toFixed(2)
       return {...state, currentProduct: action.product}
-    case GET_ALL_PRODUCTS:
-      return {...state, products: action.products}
+    }
+    case GET_ALL_PRODUCTS: {
+      let correctedPriceProds = action.products.map(currentProduct => {
+        currentProduct.price = (currentProduct.price / 100).toFixed(2)
+        return currentProduct
+      })
+      return {...state, products: correctedPriceProds}
+    }
     default:
       return state
   }

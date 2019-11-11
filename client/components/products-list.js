@@ -13,7 +13,7 @@ const ProductsList = props => {
             </div>
             <div className="product-name">{product.name}</div>
 
-            <div className="product-price">{product.price}</div>
+            <div className="product-price">${product.price}</div>
           </Link>
         </div>
       ))}
