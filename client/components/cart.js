@@ -8,6 +8,7 @@ import {
   clearCartThunk,
   showCartThunk
 } from '../store/cart'
+import {Link} from 'react-router-dom'
 import {CartList} from './index'
 import user from '../store/user'
 
@@ -26,7 +27,9 @@ class Cart extends Component {
       this.props.showCart(userId, true)
     }
   }
-
+  handleClick(evt) {
+    evt.preventDefault()
+  }
   render() {
     console.log('Cart state: ', this.props.cart)
     console.log('Current props: ', this.props)
@@ -52,7 +55,9 @@ class Cart extends Component {
         </ul>
         <form>
           <button type="button">Clear Cart</button>
-          <button type="submit">Checkout</button>
+          <Link to="/checkout">
+            <button type="submit">Checkout</button>
+          </Link>
         </form>
       </div>
     )
