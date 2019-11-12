@@ -19,15 +19,14 @@ class Cart extends Component {
   render() {
     let cartItems = this.props.cart
 
-    console.log('cartItems: ', cartItems)
     return (
       <div>
         <ul>
-          {cartItems
-            ? cartItems.map(item => {
-                return <li key={item.id}>{item.name}</li>
-              })
-            : 'Your cart is empty'}
+          {this.props.cart ? (
+            <CartList cart={this.props.cart} />
+          ) : (
+            'Your cart is empty'
+          )}
         </ul>
         <form>
           <button type="button">Clear Cart</button>
@@ -43,7 +42,9 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.carts.cart
+    cart: state.carts.cart,
+    user: state.user,
+    products: state.products.products
   }
 }
 
@@ -52,8 +53,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addProduct: (productId, userId) => dispatch(add(productId, userId)),
     removeProduct: (productId, userId) => dispatch(remove(productId, userId)),
-    clearCart: userId => dispatch(clear(userId)),
-    showCart: () => dispatch(cart())
+    clearCart: userId => dispatch(clearCartThunk(userId)),
+    showCart: userId => dispatch(showCartThunk(userId))
   }
 }
 

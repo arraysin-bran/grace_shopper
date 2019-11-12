@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, {Component} from 'react'
+import update from '../store/user'
+import {connect} from 'react-redux'
 import Review from './review'
 
 const initialState = {
@@ -31,8 +33,33 @@ class Checkout extends Component {
     this.setState({[evt.target.name]: evt.target.value})
   }
   //update user
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.proventDefault()
+    try {
+      const userId = this.props.user.id
+      const {
+        firstName,
+        lastName,
+        email,
+        streetAdress,
+        city,
+        state,
+        zipCode
+      } = this.state
+      const {data} = await axios.post(`/api/users/${userId}`, {
+        firstName,
+        lastName,
+        email,
+        streetAdress,
+        city,
+        state,
+        zipCode,
+        userId
+      })
+      this.props.updateUser(data)
+    } catch (error) {
+      console.error(error)
+    }
     this.setState(initialState)
   }
 
@@ -182,4 +209,16 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateUser: user => dispatch(update(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

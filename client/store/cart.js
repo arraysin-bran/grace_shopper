@@ -4,6 +4,9 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
+const USER_INPUT_QTY = 'USER_INPUT_QTY'
+const INCREMENT_QTY = 'INCREMENT_QTY'
+const DECREMENT_QTY = 'DECREMENT_QTY'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 const CLEAR_CART = 'CLEAR_CART'
@@ -14,31 +17,106 @@ const SHOW_CART = 'SHOW_CART'
  */
 
 const initialState = {
-  cart: [],
-  currentProduct: {}
+  cart: []
+  //currentProduct: {}
 }
 
 /**
  * ACTION CREATORS
  */
-const showCart = () => ({type: SHOW_CART})
+const userInputQty = (productId, quantity) => ({
+  type: USER_INPUT_QTY,
+  quantity,
+  productId
+})
+const incrementQty = productId => ({type: INCREMENT_QTY, productId})
+const decrementQty = productId => ({type: DECREMENT_QTY, productId})
 const addToCart = product => ({type: ADD_TO_CART, product})
-const removeFromCart = product => ({type: REMOVE_FROM_CART, product})
+const removeFromCart = productId => ({type: REMOVE_FROM_CART, productId})
 const clearCart = () => ({type: CLEAR_CART})
+const showCart = openCartProducts => ({type: SHOW_CART, openCartProducts})
 
 /**
  * THUNK CREATORS
  */
 
-export const add = (productId, userId) => async dispatch => {
+export const inputQtyThunk = (
+  productId,
+  userId,
+  quantity,
+  loggedIn = false
+) => async dispatch => {
   try {
-    if (!userId) {
-      // guest cart in local storage
-      const product = await axios.get(`/api/products/${productId}`)
-      dispatch(addToCart(product))
+    if (!loggedIn) {
+      //localStorage
+      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
+      // dispatch(addToCart(product))
     } else {
-      // user cart on server
-      const res = await axios.post(`/api/carts/${userId}`, productId)
+      // user cart
+      const res = await axios.put(
+        `/api/carts/${userId}/input/${productId}`,
+        quantity
+      )
+      dispatch(userInputQty(productId, res.data.quantity))
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const incrementQtyThunk = (
+  productId,
+  userId,
+  loggedIn = false
+) => async dispatch => {
+  try {
+    if (!loggedIn) {
+      //localStorage
+      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
+      // dispatch(addToCart(product))
+    } else {
+      // user cart
+      await axios.put(`/api/carts/${userId}/add/${productId}`)
+      dispatch(incrementQty(productId))
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const decrementQtyThunk = (
+  productId,
+  userId,
+  loggedIn = false
+) => async dispatch => {
+  try {
+    if (!loggedIn) {
+      //localStorage
+      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
+      // dispatch(addToCart(product))
+    } else {
+      // user cart
+      await axios.put(`/api/carts/${userId}/remove/${productId}`)
+      dispatch(decrementQty(productId))
+    }
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const addToCartThunk = (
+  productId,
+  userId,
+  loggedIn = false
+) => async dispatch => {
+  try {
+    if (!loggedIn) {
+      //localStorage
+      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
+      // dispatch(addToCart(product))
+    } else {
+      // user cart
+      const res = await axios.post(`/api/carts/${userId}/${productId}`)
       dispatch(addToCart(res.data))
     }
   } catch (err) {
@@ -46,24 +124,28 @@ export const add = (productId, userId) => async dispatch => {
   }
 }
 
-export const remove = (productId, userId) => async dispatch => {
-  console.log('redux console')
+export const removeFromCartThunk = (
+  productId,
+  userId,
+  loggedIn = false
+) => async dispatch => {
   try {
-    if (!userId) {
-      const product = await axios.get(`/api/products/${productId}`)
-      dispatch(removeFromCart(product))
+    if (!loggedIn) {
+      //const product = await axios.get(`/api/products/${productId}`)
+      //dispatch(removeFromCart(product))
     } else {
-      const res = await axios.delete(`/api/carts/${userId}/${productId}`)
-      dispatch(removeFromCart(res.data))
+      await axios.delete(`/api/carts/${userId}/${productId}`)
+      dispatch(removeFromCart(productId))
     }
   } catch (err) {
     console.error(err)
   }
 }
-export const clear = userId => async dispatch => {
+
+export const clearCartThunk = (userId, loggedIn = false) => async dispatch => {
   try {
-    if (!userId) {
-      dispatch(clearCart())
+    if (!loggedIn) {
+      //dispatch(clearCart())
     } else {
       await axios.delete(`/api/carts/${userId}`)
       dispatch(clearCart())
@@ -72,9 +154,14 @@ export const clear = userId => async dispatch => {
     console.error(err)
   }
 }
-export const cart = () => dispatch => {
+export const showCartThunk = (userId, loggedIn = false) => async dispatch => {
   try {
-    dispatch(showCart())
+    if (!loggedIn) {
+      //local storage stuff
+    } else {
+      let res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -83,18 +170,47 @@ export const cart = () => dispatch => {
  * REDUCER
  */
 const reducer = (state = initialState, action) => {
+  let currentCart
   switch (action.type) {
-    case SHOW_CART:
-      return {...state}
+    case USER_INPUT_QTY: {
+      currentCart = state.cart
+
+      currentCart = currentCart.map(product => {
+        if (product.id === action.productId) {
+          product.quantity = action.quantity
+        }
+      })
+      return {...state, cart: currentCart}
+    }
+    case INCREMENT_QTY:
+      currentCart = state.cart
+
+      currentCart = currentCart.map(product => {
+        if (product.id === action.productId) {
+          product.quantity += 1
+        }
+      })
+      return {...state, cart: currentCart}
+    case DECREMENT_QTY:
+      currentCart = state.cart
+
+      currentCart = currentCart.map(product => {
+        if (product.id === action.productId) {
+          product.quantity -= 1
+        }
+      })
+      return {...state, cart: currentCart}
     case ADD_TO_CART:
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cart: state.cart.filter(item => item !== action.product)
+        cart: state.cart.filter(item => item.id !== action.productId)
       }
     case CLEAR_CART:
       return {...state, cart: []}
+    case SHOW_CART:
+      return {...state, cart: action.openCartProducts}
     default:
       return state
   }

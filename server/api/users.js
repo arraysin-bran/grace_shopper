@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const passport = require('passport')
 module.exports = router
 
 // Need to add middleware for logged in users and admins
@@ -30,15 +31,32 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// admin privilege!
-router.post('/', async (req, res, next) => {
-  try {
-    const data = await User.create(req.body)
-    res.json(data)
-  } catch (error) {
-    next(error)
+router.post(
+  '/:userId',
+  passport.authenticate('local'),
+  async (req, res, next) => {
+    try {
+      const inputs = req.body
+      const data = await User.update(
+        {
+          email: inputs.email,
+          firstName: inputs.firstName,
+          lastName: inputs.lastName,
+          streetAddress: inputs.streetAddress,
+          city: inputs.city,
+          state: inputs.state,
+          zip: inputs.zip
+        },
+        {
+          where: {userId: inputs.id}
+        }
+      )
+      res.json(data)
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
 // admin privilege!
 router.delete('/:userId', async (req, res, next) => {
