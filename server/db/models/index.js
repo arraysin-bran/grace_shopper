@@ -17,10 +17,12 @@ const Cart = require('./cart')
  */
 
 User.belongsToMany(Product, {
-  through: {model: Cart, unique: false}
+  through: {model: Cart, unique: false},
+  constraints: false
 })
 Product.belongsToMany(User, {
-  through: {model: Cart, unique: false}
+  through: {model: Cart, unique: false},
+  constraints: false
 })
 
 module.exports = {
