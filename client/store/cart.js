@@ -118,9 +118,9 @@ export const addToCartThunk = (
       // user cart
       const res = await axios.post(`/api/carts/${userId}/${productId}`)
       console.log(res)
-      const newCart = await axios.get(`/api/carts/${userId}`)
-      console.log('newCart data', newCart.data)
-      dispatch(addToCart(newCart.data.products))
+      // const newCart = await axios.get(`/api/carts/${userId}`)
+      // console.log('newCart data', newCart.data)
+      dispatch(addToCart(res.data))
       // dispatch(addToCart(res.data))
     }
   } catch (err) {
