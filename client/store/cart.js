@@ -206,8 +206,8 @@ const reducer = (state = initialState, action) => {
       return {...state, cart: currentCart}
     case ADD_TO_CART:
       // action.product.price = (action.product.price / 100).toFixed(2)
-      // return {...state, cart: [...state.cart, action.product]}
-      return {...state, cart: action.product}
+      return {...state, cart: [...state.cart, action.product]}
+      // return {...state, cart: action.product}
     case REMOVE_FROM_CART:
       return {
         ...state,
