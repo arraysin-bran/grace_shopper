@@ -22,7 +22,7 @@ router.get('/:userId', async (req, res, next) => {
   const userId = req.params.userId
   try {
     const data = await User.findByPk(userId, {
-      attributes: ['id', 'firstName', 'lastName', 'email', 'address']
+      attributes: ['id', 'firstName', 'lastName', 'email', 'streetAddress']
     })
     res.json(data)
   } catch (error) {
