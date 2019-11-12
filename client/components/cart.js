@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {add, remove, clear, cart} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 /*
 list of items - clicking image or tile links to item
@@ -10,9 +11,11 @@ remove item from cart (x button or decreasing quantity to zero)
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.showCart()
+    this.props.showCart() //do we need this?
   }
-
+  handleClick(evt) {
+    evt.preventDefault()
+  }
   render() {
     let cartItems = this.props.cart
 
@@ -28,7 +31,10 @@ class Cart extends Component {
         </ul>
         <form>
           <button type="button">Clear Cart</button>
-          <button type="submit">Checkout</button>
+          <Link to="/checkout">
+            {' '}
+            <button type="submit">Checkout</button>
+          </Link>
         </form>
       </div>
     )
