@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {add, remove, clear, cart} from '../store/cart'
-import {ProductsList} from './index'
+import {CartList} from './index'
 
 /*
 list of items - clicking image or tile links to item
@@ -15,7 +15,8 @@ class Cart extends Component {
   }
 
   render() {
-    // let cartItems = this.props.cart
+    let cartItems = this.props.cart
+
     return (
       <div>
         <ul>
@@ -37,7 +38,8 @@ class Cart extends Component {
 const mapStateToProps = state => {
   return {
     cart: state.carts.cart,
-    user: state.user
+    user: state.user,
+    products: state.products.products
   }
 }
 

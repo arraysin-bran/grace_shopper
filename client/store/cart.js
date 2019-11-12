@@ -34,7 +34,7 @@ const decrementQty = productId => ({type: DECREMENT_QTY, productId})
 const addToCart = product => ({type: ADD_TO_CART, product})
 const removeFromCart = productId => ({type: REMOVE_FROM_CART, productId})
 const clearCart = () => ({type: CLEAR_CART})
-const showCart = cart => ({type: SHOW_CART, cart})
+const showCart = openCartProducts => ({type: SHOW_CART, openCartProducts})
 
 /**
  * THUNK CREATORS
@@ -210,7 +210,7 @@ const reducer = (state = initialState, action) => {
     case CLEAR_CART:
       return {...state, cart: []}
     case SHOW_CART:
-      return {...state, cart: action.cart}
+      return {...state, cart: action.openCartProducts}
     default:
       return state
   }

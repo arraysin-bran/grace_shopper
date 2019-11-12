@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Cart} = require('../db/models')
+const {Cart, Product, User} = require('../db/models')
 module.exports = router
 
 //GET All Carts (all statuses)
@@ -14,12 +14,18 @@ router.get('/', async (req, res, next) => {
 
 //GET OPEN cart of userId (OPEN only)
 router.get('/:userId', async (req, res, next) => {
+  const userId = req.params.userId
   try {
-    const data = await Cart.findAll({
-      where: {
-        userId: req.params.userId,
-        status: 'OPEN'
-      }
+    const data = await User.findByPk(userId, {
+      attributes: ['id'],
+      include: [
+        {
+          model: Product,
+          through: {
+            where: {status: 'OPEN'}
+          }
+        }
+      ]
     })
     res.json(data)
   } catch (error) {
