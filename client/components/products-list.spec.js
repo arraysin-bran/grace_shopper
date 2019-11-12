@@ -59,7 +59,7 @@ describe('ProductsList', () => {
           .at(1)
           .find('div.product-price')
           .text()
-      ).to.equal('75')
+      ).to.equal('$75')
     })
   })
 })

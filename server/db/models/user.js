@@ -41,13 +41,21 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   },
-  address: {
+  streetAddress: {
+    type: Sequelize.STRING
+  },
+  city: {
+    type: Sequelize.STRING
+  },
+  state: {
+    type: Sequelize.STRING
+  },
+  zipCode: {
     type: Sequelize.STRING
   },
   imageURL: {
     type: Sequelize.STRING,
-    defaultValue:
-      'https://gamepedia.cursecdn.com/zelda_gamepedia_en/0/08/OoT3D_Navi_Artwork.png?version=61b243ef9637615abdf7534b17361c7a'
+    defaultValue: '/images/default-profile-navi.png'
   },
   isLoggedIn: {
     type: Sequelize.BOOLEAN,

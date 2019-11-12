@@ -2,7 +2,8 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-// User Routes
+// Need to add middleware for logged in users and admins
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({

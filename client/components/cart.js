@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {add, remove, clear, cart} from '../store/cart'
+import {CartList} from './index'
 
 /*
 list of items - clicking image or tile links to item
@@ -10,21 +11,20 @@ remove item from cart (x button or decreasing quantity to zero)
 
 class Cart extends Component {
   componentDidMount() {
-    this.props.showCart() //do we need this?
+    // this.props.showCart()
   }
 
   render() {
     let cartItems = this.props.cart
 
-    console.log('cartItems: ', cartItems)
     return (
       <div>
         <ul>
-          {cartItems
-            ? cartItems.map(item => {
-                return <li key={item.id}>{item.name}</li>
-              })
-            : 'Your cart is empty'}
+          {this.props.cart ? (
+            <CartList cart={this.props.cart} />
+          ) : (
+            'Your cart is empty'
+          )}
         </ul>
         <form>
           <button type="button">Clear Cart</button>
@@ -37,7 +37,9 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.carts.cart
+    cart: state.carts.cart,
+    user: state.user,
+    products: state.products.products
   }
 }
 
@@ -46,8 +48,8 @@ const mapDispatchToProps = dispatch => {
   return {
     addProduct: (productId, userId) => dispatch(add(productId, userId)),
     removeProduct: (productId, userId) => dispatch(remove(productId, userId)),
-    clearCart: userId => dispatch(clear(userId)),
-    showCart: () => dispatch(cart())
+    clearCart: userId => dispatch(clearCartThunk(userId)),
+    showCart: userId => dispatch(showCartThunk(userId))
   }
 }
 

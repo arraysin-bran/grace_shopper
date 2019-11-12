@@ -11,6 +11,7 @@ const Cart = db.define(
     },
     quantity: {
       type: Sequelize.INTEGER,
+      defaultValue: 1,
       validate: {
         min: 0
       }

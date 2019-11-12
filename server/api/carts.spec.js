@@ -11,7 +11,7 @@ describe('Cart routes', () => {
     return db.sync({force: true})
   })
   //*****************************************************************************************/
-  describe.only('/api/carts/', () => {
+  describe('/api/carts/', () => {
     beforeEach(() => {
       User.create({
         firstName: 'Cody',
@@ -218,8 +218,8 @@ describe('Cart routes', () => {
         .get(`/api/carts/1`)
         .expect(200)
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0]).to.deep.equal({
+      expect(res.body).to.be.an('object')
+      expect(res.body.products[0].cart).to.deep.equal({
         id: 1,
         quantity: 4,
         status: 'OPEN',
@@ -229,7 +229,7 @@ describe('Cart routes', () => {
       })
     })
     //*****************************************************************************************/
-    it('POST /api/carts/:userId/:productid', async () => {
+    it("POST /api/carts/:userId/:productid adds a product to user's cart", async () => {
       let add = {
         userId: 5,
         productId: 4
@@ -251,7 +251,7 @@ describe('Cart routes', () => {
     })
 
     //*****************************************************************************************/
-    it('PUT /api/carts/:userId/:productid', async () => {
+    xit("PUT /api/carts/:userId/:productid increments a cart product's quantity", async () => {
       let currProduct = {
         userId: 2,
         productId: 1,
@@ -276,7 +276,7 @@ describe('Cart routes', () => {
       })
     })
     //*****************************************************************************************/
-    it('DELETE /api/carts/:userId/productId', async () => {
+    xit("DELETE /api/carts/:userId/productId decrements a cart product's quantity", async () => {
       let delProd = {
         userId: 5,
         productId: 6,
@@ -293,7 +293,7 @@ describe('Cart routes', () => {
       expect(res.body).to.not.contain(delProd)
     })
     //*****************************************************************************************/
-    it('DELETE /api/carts/:userId', async () => {
+    xit("DELETE /api/carts/:userId clears all products from user's cart", async () => {
       let userId = 1
       let res = await request(app)
         .delete(`/api/carts/${userId}`)
