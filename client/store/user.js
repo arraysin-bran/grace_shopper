@@ -9,7 +9,6 @@ import history from '../history'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const UPDATE_USER = 'UPDATE_USER'
-
 /**
  * INITIAL STATE
  */
@@ -26,9 +25,12 @@ const updateUser = user => ({type: UPDATE_USER, user})
  * THUNK CREATORS
  */
 export const update = user => async dispatch => {
+  console.log(user)
   try {
     const userId = user.id
-    await axios.post(`/api/users/${userId}`)
+    console.log(user)
+    const res = await axios.post(`/api/users/${userId}`)
+    console.log(res)
     dispatch(updateUser(user))
   } catch (error) {
     console.error(error)

@@ -34,29 +34,22 @@ class Checkout extends Component {
   }
   //update user
   async handleSubmit(evt) {
-    evt.proventDefault()
+    evt.preventDefault()
+    console.log('handle submit')
     try {
       const userId = this.props.user.id
-      const {
-        firstName,
-        lastName,
-        email,
-        streetAdress,
-        city,
-        state,
-        zipCode
-      } = this.state
-      const {data} = await axios.post(`/api/users/${userId}`, {
-        firstName,
-        lastName,
-        email,
-        streetAdress,
-        city,
-        state,
-        zipCode,
-        userId
+      const res = await axios.post(`/api/users/${userId}`, {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        streetAddress: this.state.streetAddress,
+        city: this.state.city,
+        state: this.state.state,
+        zip: this.state.zipCode,
+        id: userId
       })
-      this.props.updateUser(data)
+      console.log(res.data)
+      this.props.update(res.data)
     } catch (error) {
       console.error(error)
     }
@@ -79,7 +72,7 @@ class Checkout extends Component {
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="firstName">
-              <small>First Name</small>
+              <small>{`First Name ${this.props.user.id}`}</small>
             </label>
             <input
               name="firstName"
@@ -202,7 +195,9 @@ class Checkout extends Component {
               zip={this.state.zipCode}
             />
           ) : null}
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={this.handleSubmit}>
+            Submit
+          </button>
         </form>
       </div>
     )
@@ -217,7 +212,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateUser: user => dispatch(update(user))
+    update: user => dispatch(update(user))
   }
 }
 

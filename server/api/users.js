@@ -23,7 +23,16 @@ router.get('/:userId', async (req, res, next) => {
   const userId = req.params.userId
   try {
     const data = await User.findByPk(userId, {
-      attributes: ['id', 'firstName', 'lastName', 'email', 'address']
+      attributes: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'streetAddress',
+        'city',
+        'state',
+        'zipCode'
+      ]
     })
     res.json(data)
   } catch (error) {
@@ -33,8 +42,9 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post(
   '/:userId',
-  passport.authenticate('local'),
+  // passport.authenticate('local'),
   async (req, res, next) => {
+    console.log(req.body)
     try {
       const inputs = req.body
       const data = await User.update(
@@ -45,10 +55,10 @@ router.post(
           streetAddress: inputs.streetAddress,
           city: inputs.city,
           state: inputs.state,
-          zip: inputs.zip
+          zipCode: inputs.zip
         },
         {
-          where: {userId: inputs.id}
+          where: {id: inputs.id}
         }
       )
       res.json(data)

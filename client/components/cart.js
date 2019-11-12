@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {add, remove, clear, cart} from '../store/cart'
+import {
+  addToCartThunk,
+  removeFromCartThunk,
+  clearCartThunk,
+  showCartThunk
+} from '../store/cart'
 import {Link} from 'react-router-dom'
+import {CartList} from './index'
 
 /*
 list of items - clicking image or tile links to item
@@ -51,8 +57,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   //userId is optional - only pass for logged-in users
   return {
-    addProduct: (productId, userId) => dispatch(add(productId, userId)),
-    removeProduct: (productId, userId) => dispatch(remove(productId, userId)),
+    addProduct: (productId, userId) =>
+      dispatch(addToCartThunk(productId, userId)),
+    removeProduct: (productId, userId) =>
+      dispatch(removeFromCartThunk(productId, userId)),
     clearCart: userId => dispatch(clearCartThunk(userId)),
     showCart: userId => dispatch(showCartThunk(userId))
   }

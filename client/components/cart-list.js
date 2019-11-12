@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const CartList = props => {
-  const products = props.products
+  const products = props.cart
   return (
     <div id="products-list">
       {products.map(product => (
