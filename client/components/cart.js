@@ -37,7 +37,6 @@ class Cart extends Component {
         <form>
           <button type="button">Clear Cart</button>
           <Link to="/checkout">
-            {' '}
             <button type="submit">Checkout</button>
           </Link>
         </form>
