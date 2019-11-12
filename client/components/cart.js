@@ -35,7 +35,7 @@ class Cart extends Component {
     console.log('Current props: ', this.props)
     let cartUser = this.props.user
     console.log('User currently logged in: ', cartUser)
-    let cartProducts = this.props.cart.products
+    let cartProducts = this.props.cart
     console.log("User's cart items: ", cartProducts)
 
     return (

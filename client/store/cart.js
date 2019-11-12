@@ -117,7 +117,11 @@ export const addToCartThunk = (
     } else {
       // user cart
       const res = await axios.post(`/api/carts/${userId}/${productId}`)
+      console.log(res)
+      // const newCart = await axios.get(`/api/carts/${userId}`)
+      // console.log('newCart data', newCart.data)
       dispatch(addToCart(res.data))
+      // dispatch(addToCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -203,6 +207,7 @@ const reducer = (state = initialState, action) => {
     case ADD_TO_CART:
       // action.product.price = (action.product.price / 100).toFixed(2)
       return {...state, cart: [...state.cart, action.product]}
+      // return {...state, cart: action.product}
     case REMOVE_FROM_CART:
       return {
         ...state,
@@ -211,12 +216,7 @@ const reducer = (state = initialState, action) => {
     case CLEAR_CART:
       return {...state, cart: []}
     case SHOW_CART: {
-      let cartProducts = action.openCartProducts.products
-      console.log('Show cart products: ', cartProducts)
-      cartProducts = cartProducts.map(product => {
-        product.price = (product.price / 100).toFixed(2)
-      })
-      return {...state, cart: cartProducts}
+      return {...state, cart: action.openCartProducts.products}
     }
     default:
       return state
