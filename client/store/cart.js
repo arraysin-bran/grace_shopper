@@ -57,7 +57,9 @@ export const inputQtyThunk = (
         `/api/carts/${userId}/input/${productId}`,
         quantity
       )
-      dispatch(userInputQty(productId, res.data.quantity))
+      //dispatch(userInputQty(productId, res.data.quantity))
+      const res2 = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res2.data))
     }
   } catch (err) {
     console.error(err)
@@ -77,7 +79,9 @@ export const incrementQtyThunk = (
     } else {
       // user cart
       await axios.put(`/api/carts/${userId}/add/${productId}`)
-      dispatch(incrementQty(productId))
+      // dispatch(incrementQty(productId))
+      const res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -97,7 +101,9 @@ export const decrementQtyThunk = (
     } else {
       // user cart
       await axios.put(`/api/carts/${userId}/remove/${productId}`)
-      dispatch(decrementQty(productId))
+      //dispatch(decrementQty(productId))
+      const res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -117,7 +123,9 @@ export const addToCartThunk = (
     } else {
       // user cart
       const res = await axios.post(`/api/carts/${userId}/${productId}`)
-      dispatch(addToCart(res.data))
+      //dispatch(addToCart(res.data))
+      const res2 = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res2.data))
     }
   } catch (err) {
     console.error(err)
@@ -135,7 +143,9 @@ export const removeFromCartThunk = (
       //dispatch(removeFromCart(product))
     } else {
       await axios.delete(`/api/carts/${userId}/${productId}`)
-      dispatch(removeFromCart(productId))
+      //dispatch(removeFromCart(productId))
+      const res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -162,8 +172,7 @@ export const showCartThunk = (userId, loggedIn = false) => async dispatch => {
       //local storage stuff
     } else {
       const res = await axios.get(`/api/carts/${userId}`)
-      // console.log('Cart data passed through thunk: ', res.data)
-      dispatch(showCart(res.data))
+      dispatch(showCart(res.data.products))
     }
   } catch (err) {
     console.error(err)
@@ -211,12 +220,13 @@ const reducer = (state = initialState, action) => {
     case CLEAR_CART:
       return {...state, cart: []}
     case SHOW_CART: {
-      let cartProducts = action.openCartProducts.products
-      console.log('Show cart products: ', cartProducts)
-      cartProducts = cartProducts.map(product => {
-        product.price = (product.price / 100).toFixed(2)
-      })
-      return {...state, cart: cartProducts}
+      // let cartProducts = action.openCartProducts
+      // console.log('Show cart products: ', cartProducts)
+      //console.log('ACTION: ',action)
+      //let dumb = action.openCartProducts.map(product => {
+      //  product.price = (product.price / 100).toFixed(2)
+      // })
+      return {...state, cart: action.openCartProducts}
     }
     default:
       return state
