@@ -25,11 +25,41 @@ class Checkout extends Component {
   constructor() {
     super()
     this.state = initialState
+    // {
+    //   firstName: this.props.user.firstName || '',
+    //   lastName: this.props.user.lastName || '',
+    //   email: this.props.user.email || '',
+    //   streetAddress: this.props.user.streetAddress || '',
+    //   city: this.props.user.city || '',
+    //   state: this.props.user.state || '',
+    //   zipCode: this.props.user.zipCode || '',
+    //   cardNumber: '',
+    //   expirationDate: '',
+    //   cvv: '',
+    //   showReview: false,
+    //   showConfirmation: false
+    // }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleReview = this.handleReview.bind(this)
     this.getLastFour = this.getLastFour.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleConfirmation = this.handleConfirmation.bind(this)
+  }
+  componentDidMount() {
+    this.setState({
+      firstName: this.props.user.firstName || '',
+      lastName: this.props.user.lastName || '',
+      email: this.props.user.email || '',
+      streetAddress: this.props.user.streetAddress || '',
+      city: this.props.user.city || '',
+      state: this.props.user.state || '',
+      zipCode: this.props.user.zipCode || '',
+      cardNumber: '',
+      expirationDate: '',
+      cvv: '',
+      showReview: false,
+      showConfirmation: false
+    })
   }
   handleChange(evt) {
     evt.preventDefault()
