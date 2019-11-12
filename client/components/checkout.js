@@ -3,20 +3,22 @@ import React, {Component} from 'react'
 import update from '../store/user'
 import {connect} from 'react-redux'
 import Review from './review'
+import Confirmation from './confirmation'
 
 const initialState = {
   firstName: '',
   lastName: '',
   email: '',
-  streetAdress: '',
+  streetAddress: '',
   city: '',
   state: '',
   zipCode: '',
   telephone: '',
-  cardNumebr: '',
+  cardNumber: '',
   expirationDate: '',
   cvv: '',
-  showReview: false
+  showReview: false,
+  showConfirmation: false
 }
 
 class Checkout extends Component {
@@ -27,6 +29,7 @@ class Checkout extends Component {
     this.handleReview = this.handleReview.bind(this)
     this.getLastFour = this.getLastFour.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleConfirmation = this.handleConfirmation.bind(this)
   }
   handleChange(evt) {
     evt.preventDefault()
@@ -48,8 +51,8 @@ class Checkout extends Component {
         zip: this.state.zipCode,
         id: userId
       })
-      console.log(res.data)
       this.props.update(res.data)
+      //update status to closed
     } catch (error) {
       console.error(error)
     }
@@ -60,6 +63,11 @@ class Checkout extends Component {
     evt.preventDefault()
     const newReview = !this.state.showReview
     return this.setState({showReview: newReview})
+  }
+  handleConfirmation(evt) {
+    evt.preventDefault()
+    const newConfirmation = !this.state.showConfirmation
+    return this.setState({showConfirmation: newConfirmation})
   }
 
   getLastFour(cardNumber) {
@@ -143,7 +151,7 @@ class Checkout extends Component {
             <input
               name="zipCode"
               type="text"
-              value={this.state.zip}
+              value={this.state.zipCode}
               onChange={this.handleChange}
             />
           </div>
@@ -195,9 +203,19 @@ class Checkout extends Component {
               zip={this.state.zipCode}
             />
           ) : null}
-          <button type="submit" onClick={this.handleSubmit}>
+          <button type="submit" onClick={this.handleConfirmation}>
             Submit
           </button>
+          {this.state.showConfirmation ? (
+            <Confirmation
+              firstName={this.state.firstName}
+              lastName={this.state.lastName}
+              streetAddress={this.state.streetAddress}
+              state={this.state.state}
+              city={this.state.city}
+              zip={this.state.zipCode}
+            />
+          ) : null}
         </form>
       </div>
     )
