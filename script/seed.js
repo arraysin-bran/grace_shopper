@@ -13,7 +13,11 @@ async function seed() {
         firstName: 'Cody',
         lastName: 'Pug',
         email: 'cody@email.com',
-        password: '123'
+        password: '123',
+        streetAddress: '1 Dog Lane',
+        city: 'New York',
+        state: 'NY',
+        zipCode: '11201'
       },
       {
         firstName: 'Murphy',
