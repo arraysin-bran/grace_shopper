@@ -176,7 +176,7 @@ const reducer = (state = initialState, action) => {
   let currentCart
   switch (action.type) {
     case USER_INPUT_QTY: {
-      currentCart = [...state].slice(0)
+      currentCart = [...state.cart].slice(0)
       currentCart = currentCart.map(product => {
         if (product.id === action.productId) {
           product.quantity = action.quantity
@@ -185,7 +185,7 @@ const reducer = (state = initialState, action) => {
       return {...state, cart: currentCart}
     }
     case INCREMENT_QTY:
-      currentCart = [...state].slice(0)
+      currentCart = [...state.cart].slice(0)
       currentCart = currentCart.map(product => {
         if (product.id === action.productId) {
           product.quantity += 1
@@ -193,7 +193,7 @@ const reducer = (state = initialState, action) => {
       })
       return {...state, cart: currentCart}
     case DECREMENT_QTY:
-      currentCart = [...state].slice(0)
+      currentCart = [...state.cart].slice(0)
       currentCart = currentCart.map(product => {
         if (product.id === action.productId) {
           product.quantity -= 1
