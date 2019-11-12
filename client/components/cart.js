@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {add, remove, clear, cart} from '../store/cart'
+import {
+  addToCartThunk,
+  removeFromCartThunk,
+  clearCartThunk,
+  showCartThunk
+} from '../store/cart'
+import {Link} from 'react-router-dom'
 import {CartList} from './index'
 
 /*
@@ -11,9 +17,11 @@ remove item from cart (x button or decreasing quantity to zero)
 
 class Cart extends Component {
   componentDidMount() {
-    // this.props.showCart()
+    this.props.showCart() //do we need this?
   }
-
+  handleClick(evt) {
+    evt.preventDefault()
+  }
   render() {
     let cartItems = this.props.cart
 
@@ -28,7 +36,9 @@ class Cart extends Component {
         </ul>
         <form>
           <button type="button">Clear Cart</button>
-          <button type="submit">Checkout</button>
+          <Link to="/checkout">
+            <button type="submit">Checkout</button>
+          </Link>
         </form>
       </div>
     )
@@ -46,8 +56,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   //userId is optional - only pass for logged-in users
   return {
-    addProduct: (productId, userId) => dispatch(add(productId, userId)),
-    removeProduct: (productId, userId) => dispatch(remove(productId, userId)),
+    addProduct: (productId, userId) =>
+      dispatch(addToCartThunk(productId, userId)),
+    removeProduct: (productId, userId) =>
+      dispatch(removeFromCartThunk(productId, userId)),
     clearCart: userId => dispatch(clearCartThunk(userId)),
     showCart: userId => dispatch(showCartThunk(userId))
   }

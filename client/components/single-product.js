@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {product} from '../store/product'
-import {add} from '../store/cart'
+import {addToCartThunk} from '../store/cart'
 
 export class SingleProduct extends Component {
   constructor() {
@@ -58,7 +58,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProduct: id => dispatch(product(id)),
-    addToCart: id => dispatch(add(id))
+    addToCart: id => dispatch(addToCartThunk(id))
   }
 }
 
