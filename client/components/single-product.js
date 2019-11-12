@@ -13,7 +13,8 @@ export class SingleProduct extends Component {
   }
   addHandler(evt) {
     evt.preventDefault()
-    this.props.addToCart(this.props.match.params.id)
+    // this.props.addToCart(this.props.match.params.id, this.props.user.userId, this.props.user.loggedIn)
+    this.props.addToCart(this.props.match.params.id, this.props.user.id, true)
   }
 
   render() {
@@ -51,14 +52,16 @@ export class SingleProduct extends Component {
 
 const mapStateToProps = state => {
   return {
-    product: state.products.currentProduct
+    product: state.products.currentProduct,
+    user: state.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchProduct: id => dispatch(product(id)),
-    addToCart: id => dispatch(addToCartThunk(id))
+    addToCart: (productId, userId, loggedIn) =>
+      dispatch(addToCartThunk(productId, userId, loggedIn))
   }
 }
 

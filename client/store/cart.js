@@ -1,4 +1,5 @@
 import axios from 'axios'
+import user from './user'
 
 // consider revising thunk names
 /**
@@ -18,7 +19,6 @@ const SHOW_CART = 'SHOW_CART'
 
 const initialState = {
   cart: []
-  //currentProduct: {}
 }
 
 /**
@@ -154,12 +154,15 @@ export const clearCartThunk = (userId, loggedIn = false) => async dispatch => {
     console.error(err)
   }
 }
+
 export const showCartThunk = (userId, loggedIn = false) => async dispatch => {
+  console.log('User id passed through thunk: ', userId)
   try {
     if (!loggedIn) {
       //local storage stuff
     } else {
-      let res = await axios.get(`/api/carts/${userId}`)
+      const res = await axios.get(`/api/carts/${userId}`)
+      // console.log('Cart data passed through thunk: ', res.data)
       dispatch(showCart(res.data))
     }
   } catch (err) {
@@ -173,8 +176,7 @@ const reducer = (state = initialState, action) => {
   let currentCart
   switch (action.type) {
     case USER_INPUT_QTY: {
-      currentCart = state.cart
-
+      currentCart = [...state.cart].slice(0)
       currentCart = currentCart.map(product => {
         if (product.id === action.productId) {
           product.quantity = action.quantity
@@ -183,8 +185,7 @@ const reducer = (state = initialState, action) => {
       return {...state, cart: currentCart}
     }
     case INCREMENT_QTY:
-      currentCart = state.cart
-
+      currentCart = [...state.cart].slice(0)
       currentCart = currentCart.map(product => {
         if (product.id === action.productId) {
           product.quantity += 1
@@ -192,8 +193,7 @@ const reducer = (state = initialState, action) => {
       })
       return {...state, cart: currentCart}
     case DECREMENT_QTY:
-      currentCart = state.cart
-
+      currentCart = [...state.cart].slice(0)
       currentCart = currentCart.map(product => {
         if (product.id === action.productId) {
           product.quantity -= 1
@@ -201,6 +201,7 @@ const reducer = (state = initialState, action) => {
       })
       return {...state, cart: currentCart}
     case ADD_TO_CART:
+      // action.product.price = (action.product.price / 100).toFixed(2)
       return {...state, cart: [...state.cart, action.product]}
     case REMOVE_FROM_CART:
       return {
@@ -209,8 +210,14 @@ const reducer = (state = initialState, action) => {
       }
     case CLEAR_CART:
       return {...state, cart: []}
-    case SHOW_CART:
-      return {...state, cart: action.openCartProducts}
+    case SHOW_CART: {
+      let cartProducts = action.openCartProducts.products
+      console.log('Show cart products: ', cartProducts)
+      cartProducts = cartProducts.map(product => {
+        product.price = (product.price / 100).toFixed(2)
+      })
+      return {...state, cart: cartProducts}
+    }
     default:
       return state
   }
