@@ -9,7 +9,7 @@ const CartList = props => {
         <div className="products-list-info" key={product.id}>
           <Link to={`/products/${product.id}`}>
             <div className="product-image">
-              <img src={product.imageUrl} />
+              <img className="item-image" src={product.imageUrl} />
             </div>
             <div className="product-name">{product.name}</div>
             <div className="product-price">${product.price}</div>

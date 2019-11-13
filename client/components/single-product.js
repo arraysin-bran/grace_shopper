@@ -24,7 +24,7 @@ export class SingleProduct extends Component {
         <div id="product-header">
           <div id="product-header-left">
             <div className="product-image">
-              <img src={currentProduct.imageUrl} />
+              <img className="item-image" src={currentProduct.imageUrl} />
             </div>
           </div>
           <div id="product-header-right">

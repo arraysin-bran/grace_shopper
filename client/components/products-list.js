@@ -8,8 +8,8 @@ const ProductsList = props => {
       {products.map(product => (
         <div className="products-list-info" key={product.id}>
           <Link to={`/products/${product.id}`}>
-            <div className="product-image">
-              <img src={product.imageUrl} />
+            <div>
+              <img className="item-image" src={product.imageUrl} />
             </div>
             <div className="product-name">{product.name}</div>
 
