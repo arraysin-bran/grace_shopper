@@ -33,7 +33,12 @@ body * {
   justify-content: center;
   align-items: center;
 }
-
+a:visited {
+  color: white;
+}
+a:link {
+  color: white;
+}
 .product-image {
   width: 100%;
 }
@@ -46,8 +51,16 @@ body * {
 
 .products-list-info {
   width: 100px;
+  border: 2px solid yellow;
+  background-color: rgb(128, 128, 128, 0.75);
+  margin: 10px;
 }
-
+.product {
+  background-color: rgb(128, 128, 128, 0.75);
+  border: 2px solid yellow;
+  width: 25%;
+  margin: 10px;
+}
 .nav-bar {
   display: flex;
   flex-direction: row;
