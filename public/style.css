@@ -54,12 +54,71 @@ a:link {
   border: 2px solid yellow;
   background-color: rgb(128, 128, 128, 0.75);
   margin: 10px;
+  padding: 5px;
 }
 .product {
   background-color: rgb(128, 128, 128, 0.75);
   border: 2px solid yellow;
   width: 25%;
   margin: 10px;
+  padding: 5px;
+}
+.cart-product-qty {
+  color: rgb(202, 95, 202);
+}
+#add-cart-btn {
+  background-color: purple;
+  color: white;
+  border-radius: 5px;
+}
+#add-cart-btn:hover {
+  background-color: rgb(196, 48, 196);
+  color: white;
+}
+#clear-cart-btn {
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+}
+#clear-cart-btn:hover {
+  background-color: rgb(78, 78, 214);
+  color: white;
+}
+#checkout-cart-btn {
+  background-color: goldenrod;
+  color: white;
+  border-radius: 5px;
+}
+#checkout-cart-btn:hover {
+  background-color: rgb(209, 179, 105);
+  color: white;
+}
+.inc-btn {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+}
+.inc-btn:hover {
+  background-color: rgb(29, 180, 67);
+  color: white;
+}
+.dec-btn {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}
+.dec-btn:hover {
+  background-color: rgb(206, 89, 89);
+  color: white;
+}
+.trash-btn {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+.trash-btn:hover {
+  background-color: rgb(58, 54, 54);
+  color: white;
 }
 .nav-bar {
   display: flex;
@@ -121,6 +180,13 @@ nav a {
   display: inline-block;
   margin: 1em;
   color: white;
+}
+
+#single-product-img {
+  border: 1px none #ddd;
+  border-radius: 4px;
+  padding: 1px;
+  width: 150px;
 }
 
 img {

@@ -16,8 +16,9 @@ const CartList = props => {
               ${(product.price / 100).toFixed(2)}
             </div>
           </Link>
-          <div>{product.cart.quantity}</div>
+          <div className="cart-product-qty">{product.cart.quantity}</div>
           <button
+            className="inc-btn"
             disabled={product.cart.quantity === 10000}
             onClick={() => props.incrementQty(product.id, props.user.id, true)}
             type="button"
@@ -25,6 +26,7 @@ const CartList = props => {
             +
           </button>
           <button
+            className="dec-btn"
             disabled={product.cart.quantity === 1}
             onClick={() => props.decrementQty(product.id, props.user.id, true)}
             type="button"
@@ -32,6 +34,7 @@ const CartList = props => {
             -
           </button>
           <button
+            className="trash-btn"
             onClick={() => props.removeProduct(product.id, props.user.id, true)}
             type="button"
           >
