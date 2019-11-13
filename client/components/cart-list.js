@@ -16,10 +16,27 @@ const CartList = props => {
               ${(product.price / 100).toFixed(2)}
             </div>
           </Link>
-          <input type="text" />
-          <button type="button">+</button>
-          <button type="button">-</button>
-          <button type="button">TRASH</button>
+          <div>{product.cart.quantity}</div>
+          <button
+            disabled={product.cart.quantity === 10000}
+            onClick={() => props.incrementQty(product.id, props.user.id, true)}
+            type="button"
+          >
+            +
+          </button>
+          <button
+            disabled={product.cart.quantity === 1}
+            onClick={() => props.decrementQty(product.id, props.user.id, true)}
+            type="button"
+          >
+            -
+          </button>
+          <button
+            onClick={() => props.removeProduct(product.id, props.user.id, true)}
+            type="button"
+          >
+            TRASH
+          </button>
         </div>
       ))}
     </div>

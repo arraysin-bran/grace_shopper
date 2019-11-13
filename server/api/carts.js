@@ -15,7 +15,6 @@ router.get('/', async (req, res, next) => {
 //GET OPEN cart of userId (OPEN only)
 router.get('/:userId', async (req, res, next) => {
   const userId = req.params.userId
-  console.log('I am a get route for CAARRRTS')
   try {
     const data = await User.findByPk(userId, {
       attributes: ['id'],
@@ -28,7 +27,6 @@ router.get('/:userId', async (req, res, next) => {
         }
       ]
     })
-    console.log('Data received from server: ', data)
     res.json(data)
   } catch (error) {
     next(error)
