@@ -27,7 +27,6 @@ router.get('/:userId', async (req, res, next) => {
         }
       ]
     })
-    console.log('Data received from server: ', data)
     res.json(data)
   } catch (error) {
     next(error)

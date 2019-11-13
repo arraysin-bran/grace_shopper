@@ -1,7 +1,6 @@
 import axios from 'axios'
 import user from './user'
 
-// consider revising thunk names
 /**
  * ACTION TYPES
  */
@@ -49,10 +48,7 @@ export const inputQtyThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
-      // user cart
       const res = await axios.put(
         `/api/carts/${userId}/input/${productId}`,
         quantity
@@ -74,10 +70,7 @@ export const incrementQtyThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
-      // user cart
       await axios.put(`/api/carts/${userId}/add/${productId}`)
       // dispatch(incrementQty(productId))
       const res = await axios.get(`/api/carts/${userId}`)
@@ -96,10 +89,7 @@ export const decrementQtyThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
-      // user cart
       await axios.put(`/api/carts/${userId}/remove/${productId}`)
       //dispatch(decrementQty(productId))
       const res = await axios.get(`/api/carts/${userId}`)
@@ -118,8 +108,6 @@ export const addToCartThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
       // user cart
       const res = await axios.post(`/api/carts/${userId}/${productId}`)
@@ -139,8 +127,7 @@ export const removeFromCartThunk = (
 ) => async dispatch => {
   try {
     if (!loggedIn) {
-      //const product = await axios.get(`/api/products/${productId}`)
-      //dispatch(removeFromCart(product))
+      //localStorage
     } else {
       await axios.delete(`/api/carts/${userId}/${productId}`)
       //dispatch(removeFromCart(productId))
@@ -155,7 +142,7 @@ export const removeFromCartThunk = (
 export const clearCartThunk = (userId, loggedIn = false) => async dispatch => {
   try {
     if (!loggedIn) {
-      //dispatch(clearCart())
+      //localStorage
     } else {
       await axios.delete(`/api/carts/${userId}`)
       dispatch(clearCart())
@@ -169,10 +156,10 @@ export const showCartThunk = (userId, loggedIn = false) => async dispatch => {
   console.log('User id passed through thunk: ', userId)
   try {
     if (!loggedIn) {
-      //local storage stuff
+      //localStorage
     } else {
       const res = await axios.get(`/api/carts/${userId}`)
-      dispatch(showCart(res.data.products))
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)

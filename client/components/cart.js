@@ -21,8 +21,7 @@ remove item from cart (x button or decreasing quantity to zero)
 class Cart extends Component {
   componentDidMount() {
     let userId = this.props.user.id
-    console.log('Props in mount: ', this.props)
-    // this.props.showCart(this.props.user.id, this.props.user.loggedIn)
+
     if (userId) {
       this.props.showCart(userId, true)
     }
@@ -31,22 +30,17 @@ class Cart extends Component {
     evt.preventDefault()
   }
   render() {
-    console.log('Cart state: ', this.props.cart)
-    console.log('Current props: ', this.props)
     let cartUser = this.props.user
-    console.log('User currently logged in: ', cartUser)
     let cartProducts = this.props.cart
-    console.log("User's cart items: ", cartProducts)
-
     return (
       <div>
         <ul>
           {cartProducts ? (
             <CartList
               cartProducts={cartProducts}
+              user={cartUser}
               incrementQty={this.props.incrementQty}
               decrementQty={this.props.decrementQty}
-              userInputQty={this.props.incrementQty}
               removeProduct={this.props.removeProduct}
             />
           ) : (
