@@ -25,12 +25,9 @@ const updateUser = user => ({type: UPDATE_USER, user})
  * THUNK CREATORS
  */
 export const update = user => async dispatch => {
-  console.log('WE HURR', user)
   try {
     const userId = user.id
-    console.log(user)
     const res = await axios.post(`/api/users/${userId}`, user)
-    console.log(res)
     dispatch(updateUser(user))
   } catch (error) {
     console.error(error)
@@ -76,7 +73,6 @@ export const logout = () => async dispatch => {
  * REDUCER
  */
 export default function(state = defaultUser, action) {
-  console.log(state, action)
   switch (action.type) {
     case GET_USER:
       return action.user
