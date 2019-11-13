@@ -48,7 +48,12 @@ class Cart extends Component {
           )}
         </ul>
         <form>
-          <button type="button">Clear Cart</button>
+          <button
+            onClick={() => this.props.clearCart(cartUser.id, true)}
+            type="button"
+          >
+            Clear Cart
+          </button>
           <Link to="/checkout">
             <button type="submit">Checkout</button>
           </Link>
