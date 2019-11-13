@@ -33,8 +33,7 @@ export class SingleProduct extends Component {
               <div>Cost</div>
             </div>
             <div id="product-qty-row">
-              <div>***LOCAL STORAGE QTY***</div>
-              <div>Quantity</div>
+              <div>{/*TODO*/}</div>
             </div>
             <div id="product-change-qty-row">
               <button onClick={this.addHandler} type="button">
