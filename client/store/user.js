@@ -25,9 +25,12 @@ const updateUser = user => ({type: UPDATE_USER, user})
  * THUNK CREATORS
  */
 export const update = user => async dispatch => {
+  console.log('WE HURR', user)
   try {
     const userId = user.id
+    console.log(user)
     const res = await axios.post(`/api/users/${userId}`, user)
+    console.log(res)
     dispatch(updateUser(user))
   } catch (error) {
     console.error(error)
