@@ -20,7 +20,7 @@ export class SingleProduct extends Component {
   render() {
     const currentProduct = this.props.product
     return (
-      <div id="product">
+      <div className="product">
         <div id="product-header">
           <div id="product-header-left">
             <div className="product-image">
@@ -33,7 +33,8 @@ export class SingleProduct extends Component {
               <div>Cost</div>
             </div>
             <div id="product-qty-row">
-              <div>{/*TODO*/}</div>
+              {/* <div>***LOCAL STORAGE QTY***</div> */}
+              {/* <div>Quantity</div> */}
             </div>
             <div id="product-change-qty-row">
               <button onClick={this.addHandler} type="button">

@@ -1,5 +1,112 @@
 body {
-  font-family: sans-serif;
+  font-family: Cinzel Decorative;
+  font-weight: 700;
+  color: #c90024;
+  text-shadow: 2px 5px 4px black;
+  margin: 0;
+  padding: 0;
+  color: white;
+  height: 100%;
+  background-color: black;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+.products-list-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 600px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.confirmation-container {
+  color: white;
+}
+
+.checkout-container {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+a:visited {
+  color: white;
+}
+a:link {
+  color: white;
+}
+.product-image {
+  width: 100%;
+}
+
+.product-image-container {
+  width: 100%;
+  background-size: cover;
+  background-size: cover;
+}
+
+.products-list-info {
+  width: 100px;
+  border: 2px solid yellow;
+  background-color: rgb(128, 128, 128, 0.75);
+  margin: 10px;
+}
+.product {
+  background-color: rgb(128, 128, 128, 0.75);
+  border: 2px solid yellow;
+  width: 25%;
+  margin: 10px;
+}
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+}
+
+.nav-bar div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.main-icon {
+  margin-right: 1em;
+}
+
+.top {
+  background: purple;
+}
+
+form div {
+  margin-bottom: 10px;
+}
+
+form div input {
+  border-radius: 6px;
+  box-shadow: inset 0px 0px 0px 1px rgb(225, 233, 240),
+    inset 0px 3px 1px 0px rgba(225, 233, 240, 0.15),
+    inset 0px 0px 1px 1px rgba(155, 173, 188, 0.15);
+  height: 30px;
+  min-width: 250px;
+  padding: 0 8px;
+}
+
+.left {
+  background: green;
+}
+
+.bottom {
+  background: orangered;
+}
+
+.right {
+  background: blue;
 }
 
 a {
@@ -13,11 +120,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
-}
-
-form div {
-  margin: 1em;
-  display: inline-block;
+  color: white;
 }
 
 img {
@@ -25,5 +128,4 @@ img {
   border-radius: 4px;
   padding: 1px;
   width: 50px;
-  height: 75px;
 }
