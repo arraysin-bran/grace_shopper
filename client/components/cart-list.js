@@ -12,7 +12,9 @@ const CartList = props => {
               <img src={product.imageUrl} />
             </div>
             <div className="product-name">{product.name}</div>
-            <div className="product-price">${product.price}</div>
+            <div className="product-price">
+              ${(product.price / 100).toFixed(2)}
+            </div>
           </Link>
           <input type="text" />
           <button type="button">+</button>
