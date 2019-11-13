@@ -29,6 +29,7 @@ class Checkout extends Component {
     this.handleReview = this.handleReview.bind(this)
     this.getLastFour = this.getLastFour.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleTopLevelChange = this.handleTopLevelChange.bind(this)
   }
   componentDidMount() {
     this.setUserState()
@@ -42,7 +43,6 @@ class Checkout extends Component {
 
   setUserState() {
     const {user: {googleId: _, ...restOfUser}} = this.props
-
     this.setState({
       user: restOfUser || {},
       cardNumber: '',
@@ -51,13 +51,18 @@ class Checkout extends Component {
     })
   }
 
-  handleChange(event) {
+  handleChange() {
     this.setState({
       user: {...this.state.user, [event.target.name]: event.target.value}
     })
   }
 
-  //update user
+  handleTopLevelChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
   handleSubmit(event) {
     event.preventDefault()
 
@@ -171,7 +176,7 @@ class Checkout extends Component {
               name="cardNumber"
               type="text"
               value={this.state.cardNumber}
-              onChange={this.handleChange}
+              onChange={this.handleTopLevelChange}
             />
           </div>
           <div>
@@ -182,7 +187,7 @@ class Checkout extends Component {
               name="expirationDate"
               type="text"
               value={this.state.expirationDate}
-              onChange={this.handleChange}
+              onChange={this.handleTopLevelChange}
             />
           </div>
           <div>
@@ -193,7 +198,7 @@ class Checkout extends Component {
               name="cvv"
               type="text"
               value={this.state.cvv}
-              onChange={this.handleChange}
+              onChange={this.handleTopLevelChange}
             />
           </div>
           <button type="submit" onClick={this.handleReview}>

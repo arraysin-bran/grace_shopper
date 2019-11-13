@@ -9,8 +9,7 @@ const Review = props => {
     state,
     city,
     zip,
-    cardNumber,
-    telephone
+    cardNumber
   } = props
   return (
     <div>

@@ -1,5 +1,8 @@
 body {
-  font-family: sans-serif;
+  font-family: Cinzel Decorative;
+  font-weight: 700;
+  color: #c90024;
+  text-shadow: 2px 5px 4px black;
   margin: 0;
   padding: 0;
   color: white;
@@ -12,7 +15,6 @@ body * {
 }
 
 .container {
-  border: 5px solid red;
   display: flex;
   flex-direction: row;
   max-width: 600px;
@@ -38,6 +40,7 @@ body * {
 
 .product-image-container {
   width: 100%;
+  background-size: cover;
   background-size: cover;
 }
 

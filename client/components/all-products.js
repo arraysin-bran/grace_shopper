@@ -13,7 +13,6 @@ class AllProducts extends Component {
       <div className="products">
         <div className="products-header">
           <div>All Items</div>
-          <div>Price</div>
         </div>
         <ProductsList products={this.props.products} />
       </div>
