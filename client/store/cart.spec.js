@@ -76,7 +76,7 @@ describe('thunk creators', () => {
   })
 
   describe('remove single product from cart', () => {
-    xit('removes item from user/guest cart', () => {
+    it('removes item from user/guest cart', () => {
       expect(newState.cart.length).to.be.equal(1)
       newState = reducer(newState, {
         type: 'ADD_TO_CART',
@@ -85,7 +85,9 @@ describe('thunk creators', () => {
       expect(newState.cart.length).to.be.equal(2)
       const removedState = reducer(newState, {
         type: 'REMOVE_FROM_CART',
-        product: fakeProduct
+        productId: fakeProduct.id,
+        userId: 1,
+        loggedIn: true
       })
       expect(removedState.cart.length).to.be.equal(1)
     })
@@ -99,7 +101,6 @@ describe('thunk creators', () => {
         .replyOnce(204)
       await store.dispatch(removeFromCartThunk(fakeProduct.id, fakeUser.id))
       const actions = store.getActions()
-      console.log('remove', actions)
       expect(actions[0].type).to.be.equal('REMOVE_FROM_CART')
       expect(newState.cart.length).to.be.equal(0) // expect the remove from cart to only remove one of the items if many are added
     })
@@ -121,11 +122,13 @@ describe('thunk creators', () => {
   })
 
   describe('clear cart', () => {
-    xit('clears a users/guest cart', () => {
+    it('clears a users/guest cart', () => {
       expect(newState.cart.length).to.be.equal(1)
       newState = reducer(newState, {
         type: 'ADD_TO_CART',
-        product: fakeProduct2
+        productId: fakeProduct2.id,
+        userId: 1,
+        loggedIn: true
       })
       expect(newState.cart.length).to.be.equal(2)
       const clearedState = reducer(newState, {
@@ -155,11 +158,15 @@ describe('thunk creators', () => {
       expect(newState.cart.length).to.be.equal(1)
       newState = reducer(newState, {
         type: 'ADD_TO_CART',
-        product: fakeProduct2
+        productId: fakeProduct2.id,
+        userId: 1,
+        loggedIn: true
       })
       expect(newState.cart.length).to.be.equal(2)
       const cartState = reducer(newState, {
-        type: 'SHOW_CART'
+        type: 'SHOW_CART',
+        userId: 1,
+        loggedIn: true
       })
       expect(cartState).to.be.deep.equal(newState.cart)
     })
