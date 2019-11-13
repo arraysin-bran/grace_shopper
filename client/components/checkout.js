@@ -1,19 +1,19 @@
-import axios from 'axios'
 import React, {Component} from 'react'
-import update from '../store/user'
+import {update} from '../store/user'
 import {connect} from 'react-redux'
 import Review from './review'
 import Confirmation from './confirmation'
+import Modal from 'react-modal'
+
+Modal.defaultStyles.content.top = 150
+Modal.defaultStyles.content.left = 80
+Modal.defaultStyles.content.right = 80
+Modal.defaultStyles.content.bottom = 150
+Modal.defaultStyles.content.backgroundColor = 'black'
+Modal.defaultStyles.content.opacity = '0.7'
 
 const initialState = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  streetAddress: '',
-  city: '',
-  state: '',
-  zipCode: '',
-  telephone: '',
+  user: {},
   cardNumber: '',
   expirationDate: '',
   cvv: '',
@@ -29,50 +29,44 @@ class Checkout extends Component {
     this.handleReview = this.handleReview.bind(this)
     this.getLastFour = this.getLastFour.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.handleConfirmation = this.handleConfirmation.bind(this)
+    this.handleTopLevelChange = this.handleTopLevelChange.bind(this)
   }
   componentDidMount() {
+    this.setUserState()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.user !== this.props.user) {
+      this.setUserState()
+    }
+  }
+
+  setUserState() {
+    const {user: {googleId: _, ...restOfUser}} = this.props
     this.setState({
-      firstName: this.props.user.firstName || '',
-      lastName: this.props.user.lastName || '',
-      email: this.props.user.email || '',
-      streetAddress: this.props.user.streetAddress || '',
-      city: this.props.user.city || '',
-      state: this.props.user.state || '',
-      zipCode: this.props.user.zipCode || '',
+      user: restOfUser || {},
       cardNumber: '',
       expirationDate: '',
-      cvv: '',
-      showReview: false,
-      showConfirmation: false
+      cvv: ''
     })
   }
-  handleChange(evt) {
-    evt.preventDefault()
-    this.setState({[evt.target.name]: evt.target.value})
+
+  handleChange() {
+    this.setState({
+      user: {...this.state.user, [event.target.name]: event.target.value}
+    })
   }
-  //update user
-  async handleSubmit(evt) {
-    evt.preventDefault()
-    console.log('handle submit')
-    try {
-      const userId = this.props.user.id
-      const res = await axios.post(`/api/users/${userId}`, {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        email: this.state.email,
-        streetAddress: this.state.streetAddress,
-        city: this.state.city,
-        state: this.state.state,
-        zip: this.state.zipCode,
-        id: userId
-      })
-      this.props.update(res.data)
-      //update status to closed
-    } catch (error) {
-      console.error(error)
-    }
-    this.setState(initialState)
+
+  handleTopLevelChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.update(this.state.user)
+    this.setState({...this.state, showReview: false, showConfirmation: true})
   }
 
   handleReview(evt) {
@@ -80,19 +74,16 @@ class Checkout extends Component {
     const newReview = !this.state.showReview
     return this.setState({showReview: newReview})
   }
-  handleConfirmation(evt) {
-    evt.preventDefault()
-    const newConfirmation = !this.state.showConfirmation
-    return this.setState({showConfirmation: newConfirmation})
-  }
 
   getLastFour(cardNumber) {
     return cardNumber.slice(12)
   }
 
   render() {
+    const {user} = this.state
+
     return (
-      <div>
+      <div className="checkout-container">
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="firstName">
@@ -101,7 +92,7 @@ class Checkout extends Component {
             <input
               name="firstName"
               type="text"
-              value={this.state.firstName}
+              value={user.firstName}
               onChange={this.handleChange}
             />
           </div>
@@ -112,7 +103,7 @@ class Checkout extends Component {
             <input
               name="lastName"
               type="text"
-              value={this.state.lastName}
+              value={user.lastName}
               onChange={this.handleChange}
             />
           </div>
@@ -123,7 +114,7 @@ class Checkout extends Component {
             <input
               name="email"
               type="text"
-              value={this.state.email}
+              value={user.email}
               onChange={this.handleChange}
             />
           </div>
@@ -134,7 +125,7 @@ class Checkout extends Component {
             <input
               name="streetAddress"
               type="text"
-              value={this.state.streetAddress}
+              value={user.streetAddress}
               onChange={this.handleChange}
             />
           </div>
@@ -145,7 +136,7 @@ class Checkout extends Component {
             <input
               name="city"
               type="text"
-              value={this.state.city}
+              value={user.city}
               onChange={this.handleChange}
             />
           </div>
@@ -156,7 +147,7 @@ class Checkout extends Component {
             <input
               name="state"
               type="text"
-              value={this.state.state}
+              value={user.state}
               onChange={this.handleChange}
             />
           </div>
@@ -167,7 +158,7 @@ class Checkout extends Component {
             <input
               name="zipCode"
               type="text"
-              value={this.state.zipCode}
+              value={user.zipCode}
               onChange={this.handleChange}
             />
           </div>
@@ -179,7 +170,7 @@ class Checkout extends Component {
               name="cardNumber"
               type="text"
               value={this.state.cardNumber}
-              onChange={this.handleChange}
+              onChange={this.handleTopLevelChange}
             />
           </div>
           <div>
@@ -190,7 +181,7 @@ class Checkout extends Component {
               name="expirationDate"
               type="text"
               value={this.state.expirationDate}
-              onChange={this.handleChange}
+              onChange={this.handleTopLevelChange}
             />
           </div>
           <div>
@@ -201,37 +192,39 @@ class Checkout extends Component {
               name="cvv"
               type="text"
               value={this.state.cvv}
-              onChange={this.handleChange}
+              onChange={this.handleTopLevelChange}
             />
           </div>
           <button type="submit" onClick={this.handleReview}>
             Review
           </button>
-          {this.state.showReview ? (
+          {this.state.showReview && (
             <Review
               cardNumber={this.getLastFour(this.state.cardNumber)}
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              email={this.state.email}
-              streetAddress={this.state.streetAddress}
-              state={this.state.state}
-              city={this.state.city}
-              zip={this.state.zipCode}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              email={user.email}
+              streetAddress={user.streetAddress}
+              state={user.state}
+              city={user.city}
+              zip={user.zipCode}
             />
-          ) : null}
-          <button type="submit" onClick={this.handleConfirmation}>
-            Submit
-          </button>
-          {this.state.showConfirmation ? (
+          )}
+          <button type="submit">Confirm</button>
+          <Modal
+            isOpen={this.state.showConfirmation}
+            onRequestClose={() => this.setState({showConfirmation: false})}
+          >
             <Confirmation
-              firstName={this.state.firstName}
-              lastName={this.state.lastName}
-              streetAddress={this.state.streetAddress}
-              state={this.state.state}
-              city={this.state.city}
-              zip={this.state.zipCode}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              streetAddress={user.streetAddress}
+              state={user.state}
+              city={user.city}
+              zip={user.zipCode}
+              close={() => this.setState({showConfirmation: false})}
             />
-          ) : null}
+          </Modal>
         </form>
       </div>
     )

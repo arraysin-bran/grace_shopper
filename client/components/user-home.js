@@ -6,11 +6,14 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {email, imageUrl} = props
+  console.log(props)
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>
+        Welcome to the Fang and Bone shop! <br /> {email}
+      </h3>
     </div>
   )
 }
