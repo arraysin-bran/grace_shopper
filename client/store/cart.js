@@ -153,7 +153,6 @@ export const clearCartThunk = (userId, loggedIn = false) => async dispatch => {
 }
 
 export const showCartThunk = (userId, loggedIn = false) => async dispatch => {
-  console.log('User id passed through thunk: ', userId)
   try {
     if (!loggedIn) {
       //localStorage

@@ -40,33 +40,28 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.post(
-  '/:userId',
-  // passport.authenticate('local'),
-  async (req, res, next) => {
-    console.log(req.body)
-    try {
-      const inputs = req.body
-      const data = await User.update(
-        {
-          email: inputs.email,
-          firstName: inputs.firstName,
-          lastName: inputs.lastName,
-          streetAddress: inputs.streetAddress,
-          city: inputs.city,
-          state: inputs.state,
-          zipCode: inputs.zip
-        },
-        {
-          where: {id: inputs.id}
-        }
-      )
-      res.json(data)
-    } catch (error) {
-      next(error)
-    }
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const inputs = req.body
+    const data = await User.update(
+      {
+        email: inputs.email,
+        firstName: inputs.firstName,
+        lastName: inputs.lastName,
+        streetAddress: inputs.streetAddress,
+        city: inputs.city,
+        state: inputs.state,
+        zipCode: inputs.zip
+      },
+      {
+        where: {id: inputs.id}
+      }
+    )
+    res.json(data)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
 // admin privilege!
 router.delete('/:userId', async (req, res, next) => {
