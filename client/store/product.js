@@ -29,7 +29,6 @@ const getProducts = products => ({type: GET_ALL_PRODUCTS, products})
 export const product = productId => async dispatch => {
   try {
     const res = await axios.get(`/api/products/${productId}`)
-    console.log('result of axios: ', res.data)
     dispatch(getProduct(res.data))
   } catch (err) {
     console.error(err)
