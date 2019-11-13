@@ -24,7 +24,7 @@ export class SingleProduct extends Component {
         <div id="product-header">
           <div id="product-header-left">
             <div className="product-image">
-              <img src={currentProduct.imageUrl} />
+              <img id="single-product-img" src={currentProduct.imageUrl} />
             </div>
           </div>
           <div id="product-header-right">
@@ -37,7 +37,7 @@ export class SingleProduct extends Component {
               {/* <div>Quantity</div> */}
             </div>
             <div id="product-change-qty-row">
-              <button onClick={this.addHandler} type="button">
+              <button id="add-cart-btn" onClick={this.addHandler} type="button">
                 Add To Cart
               </button>
             </div>
