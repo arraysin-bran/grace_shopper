@@ -65,13 +65,7 @@ class Checkout extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-
-    try {
-      this.props.update(this.state.user)
-    } catch (error) {
-      console.error(error)
-    }
-
+    this.props.update(this.state.user)
     this.setState({...this.state, showReview: false, showConfirmation: true})
   }
 

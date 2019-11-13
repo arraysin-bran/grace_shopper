@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const ProductsList = props => {
   const products = props.products
   return (
-    <div className="container">
+    <div className="products-list-container">
       {products.map(product => (
         <div className="products-list-info" key={product.id}>
           <Link to={`/products/${product.id}`}>

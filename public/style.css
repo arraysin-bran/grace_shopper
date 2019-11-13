@@ -14,7 +14,7 @@ body * {
   box-sizing: border-box;
 }
 
-.container {
+.products-list-container {
   display: flex;
   flex-direction: row;
   max-width: 600px;
