@@ -4,7 +4,6 @@ module.exports = router
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('AXIOS ID IN: ', req.params.id)
     const id = req.params.id
     const product = await Product.findByPk(id)
     res.json(product)

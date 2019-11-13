@@ -87,7 +87,7 @@ class Checkout extends Component {
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="firstName">
-              <small>{`First Name ${this.props.user.id}`}</small>
+              <small>First Name</small>
             </label>
             <input
               name="firstName"

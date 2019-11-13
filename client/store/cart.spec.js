@@ -80,7 +80,9 @@ describe('thunk creators', () => {
       expect(newState.cart.length).to.be.equal(1)
       newState = reducer(newState, {
         type: 'ADD_TO_CART',
-        product: fakeProduct2
+        productId: fakeProduct2.id,
+        userId: 1,
+        loggedIn: true
       })
       expect(newState.cart.length).to.be.equal(2)
       const removedState = reducer(newState, {
