@@ -1,7 +1,6 @@
 import axios from 'axios'
 import user from './user'
 
-// consider revising thunk names
 /**
  * ACTION TYPES
  */
@@ -49,15 +48,14 @@ export const inputQtyThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
-      // user cart
       const res = await axios.put(
         `/api/carts/${userId}/input/${productId}`,
         quantity
       )
-      dispatch(userInputQty(productId, res.data.quantity))
+      //dispatch(userInputQty(productId, res.data.quantity))
+      const res2 = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res2.data))
     }
   } catch (err) {
     console.error(err)
@@ -72,12 +70,11 @@ export const incrementQtyThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
-      // user cart
       await axios.put(`/api/carts/${userId}/add/${productId}`)
-      dispatch(incrementQty(productId))
+      // dispatch(incrementQty(productId))
+      const res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -92,12 +89,11 @@ export const decrementQtyThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
-      // user cart
       await axios.put(`/api/carts/${userId}/remove/${productId}`)
-      dispatch(decrementQty(productId))
+      //dispatch(decrementQty(productId))
+      const res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -112,16 +108,12 @@ export const addToCartThunk = (
   try {
     if (!loggedIn) {
       //localStorage
-      // const product = await axios.get(`/api/products/${productId}`) // may need to {product}
-      // dispatch(addToCart(product))
     } else {
       // user cart
       const res = await axios.post(`/api/carts/${userId}/${productId}`)
-      console.log(res)
-      // const newCart = await axios.get(`/api/carts/${userId}`)
-      // console.log('newCart data', newCart.data)
-      dispatch(addToCart(res.data))
-      // dispatch(addToCart(res.data))
+      //dispatch(addToCart(res.data))
+      const res2 = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res2.data))
     }
   } catch (err) {
     console.error(err)
@@ -135,11 +127,12 @@ export const removeFromCartThunk = (
 ) => async dispatch => {
   try {
     if (!loggedIn) {
-      //const product = await axios.get(`/api/products/${productId}`)
-      //dispatch(removeFromCart(product))
+      //localStorage
     } else {
       await axios.delete(`/api/carts/${userId}/${productId}`)
-      dispatch(removeFromCart(productId))
+      //dispatch(removeFromCart(productId))
+      const res = await axios.get(`/api/carts/${userId}`)
+      dispatch(showCart(res.data))
     }
   } catch (err) {
     console.error(err)
@@ -149,7 +142,7 @@ export const removeFromCartThunk = (
 export const clearCartThunk = (userId, loggedIn = false) => async dispatch => {
   try {
     if (!loggedIn) {
-      //dispatch(clearCart())
+      //localStorage
     } else {
       await axios.delete(`/api/carts/${userId}`)
       dispatch(clearCart())
@@ -163,10 +156,9 @@ export const showCartThunk = (userId, loggedIn = false) => async dispatch => {
   console.log('User id passed through thunk: ', userId)
   try {
     if (!loggedIn) {
-      //local storage stuff
+      //localStorage
     } else {
       const res = await axios.get(`/api/carts/${userId}`)
-      // console.log('Cart data passed through thunk: ', res.data)
       dispatch(showCart(res.data))
     }
   } catch (err) {
@@ -207,7 +199,7 @@ const reducer = (state = initialState, action) => {
     case ADD_TO_CART:
       // action.product.price = (action.product.price / 100).toFixed(2)
       return {...state, cart: [...state.cart, action.product]}
-      // return {...state, cart: action.product}
+    // return {...state, cart: action.product}
     case REMOVE_FROM_CART:
       return {
         ...state,
