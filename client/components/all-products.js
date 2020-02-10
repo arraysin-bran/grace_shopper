@@ -10,7 +10,7 @@ class AllProducts extends Component {
 
   render() {
     return (
-      <div className="products">
+      <div className="nes-container is-rounded">
         <div className="products-header">
           <div>All Items</div>
         </div>
