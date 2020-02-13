@@ -23,14 +23,12 @@ export class SingleProduct extends Component {
       <div className="product">
         <div id="product-header">
           <div id="product-header-left">
-            <div className="product-image">
-              <img id="single-product-img" src={currentProduct.imageUrl} />
-            </div>
+            <img id="single-product-img" src={currentProduct.imageUrl} />
           </div>
           <div id="product-header-right">
-            <div id="product-price-row">
-              <div>${currentProduct.price}</div>
-              <div>Cost</div>
+            <div id="product-specs-col">
+              <div id="product-price">${currentProduct.price}</div>
+              <div>Category: {currentProduct.category}</div>
             </div>
             <div id="product-qty-row">
               {/* <div>***LOCAL STORAGE QTY***</div> */}
@@ -43,8 +41,11 @@ export class SingleProduct extends Component {
             </div>
           </div>
         </div>
-        <div className="product-name">{currentProduct.name}</div>
-        <div className="product-desc">{currentProduct.description}</div>
+        <div className="product-info">
+          <div className="product-name">{currentProduct.name}</div>
+          <hr />
+          <div className="product-desc">{currentProduct.description}</div>
+        </div>
       </div>
     )
   }
