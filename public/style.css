@@ -1,131 +1,29 @@
 body {
-  font-family: Cinzel Decorative;
-  font-weight: 700;
-  color: #c90024;
+  font-family: 'Arial Narrow', 'Franklin Gothic Medium', Arial, sans-serif;
   text-shadow: 2px 5px 4px black;
   margin: 0;
   padding: 0;
   color: white;
   height: 100%;
-  background-color: black;
+  background-color: rgb(17, 18, 13);
 }
 
 body * {
   box-sizing: border-box;
 }
 
-.products-list-container {
-  display: flex;
-  flex-direction: row;
-  max-width: 600px;
-  flex-wrap: wrap;
-  justify-content: space-between;
+label {
+  display: block;
 }
 
-.confirmation-container {
-  color: white;
-}
-
-.checkout-container {
-  padding: 16px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-a:visited {
-  color: white;
-}
-a:link {
-  color: white;
-}
-.product-image {
-  width: 100%;
-}
-
-.product-image-container {
-  width: 100%;
-  background-size: cover;
-  background-size: cover;
-}
-
-.products-list-info {
-  width: 100px;
-  border: 2px solid yellow;
-  background-color: rgb(128, 128, 128, 0.75);
-  margin: 10px;
-  padding: 5px;
-}
-.product {
-  background-color: rgb(128, 128, 128, 0.75);
-  border: 2px solid yellow;
-  width: 25%;
-  margin: 10px;
-  padding: 5px;
-}
-.cart-product-qty {
-  color: rgb(202, 95, 202);
-}
-#add-cart-btn {
-  background-color: purple;
-  color: white;
-  border-radius: 5px;
-}
-#add-cart-btn:hover {
-  background-color: rgb(196, 48, 196);
-  color: white;
-}
-#clear-cart-btn {
-  background-color: blue;
-  color: white;
-  border-radius: 5px;
-}
-#clear-cart-btn:hover {
-  background-color: rgb(78, 78, 214);
-  color: white;
-}
-#checkout-cart-btn {
-  background-color: goldenrod;
-  color: white;
-  border-radius: 5px;
-}
-#checkout-cart-btn:hover {
-  background-color: rgb(209, 179, 105);
-  color: white;
-}
-.inc-btn {
-  background-color: green;
-  color: white;
-  border-radius: 5px;
-}
-.inc-btn:hover {
-  background-color: rgb(29, 180, 67);
-  color: white;
-}
-.dec-btn {
-  background-color: red;
-  color: white;
-  border-radius: 5px;
-}
-.dec-btn:hover {
-  background-color: rgb(206, 89, 89);
-  color: white;
-}
-.trash-btn {
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-}
-.trash-btn:hover {
-  background-color: rgb(58, 54, 54);
-  color: white;
-}
+/* NAVBAR STYLES */
 .nav-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
+  background-color: rgb(27, 45, 40);
 }
 
 .nav-bar div {
@@ -138,10 +36,25 @@ a:link {
   margin-right: 1em;
 }
 
-.top {
-  background: purple;
+a {
+  text-decoration: none;
 }
 
+nav a {
+  display: inline-block;
+  margin: 1em;
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+a:link {
+  color: white;
+}
+
+/* LOGIN/SIGNUP STYLES */
 form div {
   margin-bottom: 10px;
 }
@@ -156,30 +69,13 @@ form div input {
   padding: 0 8px;
 }
 
-.left {
-  background: green;
-}
-
-.bottom {
-  background: orangered;
-}
-
-.right {
-  background: blue;
-}
-
-a {
-  text-decoration: none;
-}
-
-label {
-  display: block;
-}
-
-nav a {
-  display: inline-block;
-  margin: 1em;
-  color: white;
+/* SINGLE PRODUCT STYLES */
+.product {
+  background-color: rgb(128, 128, 128, 0.75);
+  border: 2px solid yellow;
+  width: 25%;
+  margin: 10px;
+  padding: 5px;
 }
 
 #single-product-img {
@@ -189,9 +85,121 @@ nav a {
   width: 150px;
 }
 
+.product-image {
+  width: 100%;
+}
+
+/* PRODUCTS LIST STYLES */
+.products-list-container {
+  display: flex;
+  flex-direction: row;
+  max-width: 600px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.products-list-info {
+  width: 100px;
+  border: 2px solid yellow;
+  background-color: rgb(128, 128, 128, 0.75);
+  margin: 10px;
+  padding: 5px;
+}
+
+.product-image-container {
+  width: 100%;
+  background-size: cover;
+  background-size: cover;
+}
+
 img {
   border: 1px none #ddd;
   border-radius: 4px;
   padding: 1px;
   width: 50px;
+}
+
+/* CONFIRMATION PAGE STYLES */
+.confirmation-container {
+  color: white;
+}
+
+/* CHECKOUT STYLES */
+.checkout-container {
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CART STYLES */
+.cart-product-qty {
+  color: rgb(202, 95, 202);
+}
+
+#add-cart-btn {
+  background-color: purple;
+  color: white;
+  border-radius: 5px;
+}
+
+#add-cart-btn:hover {
+  background-color: rgb(196, 48, 196);
+  color: white;
+}
+
+#clear-cart-btn {
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+}
+
+#clear-cart-btn:hover {
+  background-color: rgb(78, 78, 214);
+  color: white;
+}
+
+#checkout-cart-btn {
+  background-color: goldenrod;
+  color: white;
+  border-radius: 5px;
+}
+
+#checkout-cart-btn:hover {
+  background-color: rgb(209, 179, 105);
+  color: white;
+}
+
+.inc-btn {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+}
+
+.inc-btn:hover {
+  background-color: rgb(29, 180, 67);
+  color: white;
+}
+
+.dec-btn {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}
+
+.dec-btn:hover {
+  background-color: rgb(206, 89, 89);
+  color: white;
+}
+
+.trash-btn {
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+}
+
+.trash-btn:hover {
+  background-color: rgb(58, 54, 54);
+  color: white;
 }
