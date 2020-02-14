@@ -19,6 +19,13 @@ label {
   display: block;
 }
 
+button {
+  height: 50px;
+  border-radius: 5px;
+  border-color: rgb(65, 80, 70);
+  color: white;
+}
+
 /* NAVBAR STYLES */
 .nav-bar {
   display: flex;
@@ -112,6 +119,15 @@ form div input {
   font-size: 1.5em;
 }
 
+#add-cart-btn {
+  background-color: purple;
+  font-size: 1em;
+}
+
+#add-cart-btn:hover {
+  background-color: rgb(196, 48, 196);
+}
+
 .product-info {
   padding: 5px 0px;
 }
@@ -126,8 +142,8 @@ hr {
   display: flex;
   flex-direction: column;
   min-width: 600px;
-  flex-wrap: wrap;
   justify-content: space-between;
+  flex-grow: 8;
 }
 
 .product-list-info {
@@ -180,6 +196,89 @@ img {
   width: 50px;
 }
 
+/* CART STYLES */
+#cart {
+  display: flex;
+  flex-direction: row;
+}
+
+#cart-options {
+  display: flex;
+  flex-grow: 2;
+  flex-direction: column;
+  padding-left: 16px;
+}
+
+.cart-product-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.cart-product-qty {
+  font-size: 1.5em;
+  margin: 5px 0px;
+  color: rgb(202, 95, 202);
+}
+
+.cart-product-iterators {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 10px;
+}
+
+#checkout-cart-btn {
+  background-color: rgb(201, 149, 18);
+  margin: 5px 0px;
+  width: 100%;
+  border-width: 3px;
+  font-size: 1em;
+}
+
+#checkout-cart-btn:hover {
+  background-color: goldenrod;
+}
+
+#clear-cart-btn {
+  background-color: darkgray;
+  margin: 5px 0px;
+  border-width: 3px;
+  font-size: 1em;
+}
+
+#clear-cart-btn:hover {
+  background-color: gray;
+  border-color: darkred;
+  color: darkred;
+}
+
+.inc-btn {
+  height: 50%;
+  background-color: green;
+}
+
+.inc-btn:hover {
+  background-color: rgb(29, 180, 67);
+}
+
+.dec-btn {
+  height: 50%;
+  background-color: red;
+}
+
+.dec-btn:hover {
+  background-color: rgb(206, 89, 89);
+}
+
+.trash-btn {
+  background-color: black;
+}
+
+.trash-btn:hover {
+  background-color: rgb(58, 54, 54);
+}
+
 /* CONFIRMATION PAGE STYLES */
 .confirmation-container {
   color: white;
@@ -192,75 +291,4 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-/* CART STYLES */
-.cart-product-qty {
-  color: rgb(202, 95, 202);
-}
-
-#add-cart-btn {
-  background-color: purple;
-  color: white;
-  border-radius: 5px;
-}
-
-#add-cart-btn:hover {
-  background-color: rgb(196, 48, 196);
-  color: white;
-}
-
-#clear-cart-btn {
-  background-color: blue;
-  color: white;
-  border-radius: 5px;
-}
-
-#clear-cart-btn:hover {
-  background-color: rgb(78, 78, 214);
-  color: white;
-}
-
-#checkout-cart-btn {
-  background-color: goldenrod;
-  color: white;
-  border-radius: 5px;
-}
-
-#checkout-cart-btn:hover {
-  background-color: rgb(209, 179, 105);
-  color: white;
-}
-
-.inc-btn {
-  background-color: green;
-  color: white;
-  border-radius: 5px;
-}
-
-.inc-btn:hover {
-  background-color: rgb(29, 180, 67);
-  color: white;
-}
-
-.dec-btn {
-  background-color: red;
-  color: white;
-  border-radius: 5px;
-}
-
-.dec-btn:hover {
-  background-color: rgb(206, 89, 89);
-  color: white;
-}
-
-.trash-btn {
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-}
-
-.trash-btn:hover {
-  background-color: rgb(58, 54, 54);
-  color: white;
 }
