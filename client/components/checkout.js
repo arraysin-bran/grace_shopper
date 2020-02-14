@@ -5,12 +5,12 @@ import Review from './review'
 import Confirmation from './confirmation'
 import Modal from 'react-modal'
 
-Modal.defaultStyles.content.top = 150
-Modal.defaultStyles.content.left = 80
-Modal.defaultStyles.content.right = 80
-Modal.defaultStyles.content.bottom = 150
+Modal.defaultStyles.content.top = null
+Modal.defaultStyles.content.left = null
+Modal.defaultStyles.content.right = null
+Modal.defaultStyles.content.bottom = null
 Modal.defaultStyles.content.backgroundColor = 'black'
-Modal.defaultStyles.content.opacity = '0.7'
+Modal.defaultStyles.content.opacity = '0.8'
 
 const initialState = {
   user: {},
@@ -195,7 +195,7 @@ class Checkout extends Component {
               onChange={this.handleTopLevelChange}
             />
           </div>
-          <button type="submit" onClick={this.handleReview}>
+          <button id="review-btn" type="submit" onClick={this.handleReview}>
             Review
           </button>
           {this.state.showReview && (
@@ -210,8 +210,11 @@ class Checkout extends Component {
               zip={user.zipCode}
             />
           )}
-          <button type="submit">Confirm</button>
+          <button id="confirm-btn" type="submit">
+            Confirm
+          </button>
           <Modal
+            id="confirmation-modal"
             isOpen={this.state.showConfirmation}
             onRequestClose={() => this.setState({showConfirmation: false})}
           >
@@ -222,7 +225,6 @@ class Checkout extends Component {
               state={user.state}
               city={user.city}
               zip={user.zipCode}
-              close={() => this.setState({showConfirmation: false})}
             />
           </Modal>
         </form>

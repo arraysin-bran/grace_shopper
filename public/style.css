@@ -279,11 +279,6 @@ img {
   background-color: rgb(58, 54, 54);
 }
 
-/* CONFIRMATION PAGE STYLES */
-.confirmation-container {
-  color: white;
-}
-
 /* CHECKOUT STYLES */
 .checkout-container {
   padding: 16px 24px;
@@ -291,4 +286,51 @@ img {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#review-btn,
+#confirm-btn,
+#close-btn {
+  border: 2px solid rgb(20, 30, 30);
+  border-radius: 5px;
+  box-shadow: 0 0 0 2px rgb(65, 80, 70) inset;
+  background-color: rgb(20, 30, 30);
+  margin: 5px 5px;
+  padding: 10px;
+  font-size: 1em;
+}
+
+#review-btn:hover,
+#confirm-btn:hover,
+#close-btn:hover {
+  border: 2px solid rgb(255, 255, 230);
+  box-shadow: 0 0 3px rgb(255, 255, 230);
+}
+
+/* CONFIRMATION PAGE STYLES */
+.ReactModal__Content#confirmation-modal {
+  width: 30vw;
+  height: 50vh;
+  min-width: 450px;
+  min-height: 250px;
+  top: 50%;
+  left: 50%;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
+#confirmation-container {
+  display: flex;
+  flex-direction: row;
+  color: white;
+}
+
+#confirmation-details {
+  flex-grow: 9;
+}
+
+#confirmation-close {
+  flex-grow: 1;
+  text-align: center;
 }
