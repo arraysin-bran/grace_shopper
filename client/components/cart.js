@@ -33,21 +33,24 @@ class Cart extends Component {
     let cartUser = this.props.user
     let cartProducts = this.props.cart
     return (
-      <div>
-        <ul>
-          {cartProducts ? (
-            <CartList
-              cartProducts={cartProducts}
-              user={cartUser}
-              incrementQty={this.props.incrementQty}
-              decrementQty={this.props.decrementQty}
-              removeProduct={this.props.removeProduct}
-            />
-          ) : (
-            'Your cart is empty'
-          )}
-        </ul>
-        <form>
+      <div id="cart">
+        {cartProducts ? (
+          <CartList
+            cartProducts={cartProducts}
+            user={cartUser}
+            incrementQty={this.props.incrementQty}
+            decrementQty={this.props.decrementQty}
+            removeProduct={this.props.removeProduct}
+          />
+        ) : (
+          <p>'Your cart is empty'</p>
+        )}
+        <div id="cart-options">
+          <Link to="/checkout">
+            <button id="checkout-cart-btn" type="submit">
+              Checkout
+            </button>
+          </Link>
           <button
             id="clear-cart-btn"
             onClick={() => this.props.clearCart(cartUser.id, true)}
@@ -55,12 +58,7 @@ class Cart extends Component {
           >
             Clear Cart
           </button>
-          <Link to="/checkout">
-            <button id="checkout-cart-btn" type="submit">
-              Checkout
-            </button>
-          </Link>
-        </form>
+        </div>
       </div>
     )
   }
