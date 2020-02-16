@@ -13,18 +13,15 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "fang-and-bone-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "fang_and_bone-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
 before_deploy: # omit node_modules, since we set skip_cleanup below
   - rm -rf node_modules
-deploy: # see README for details on these keys
-  # prevents travis from deleting the build
+deploy:
   skip_cleanup: true
   provider: heroku
-  # app should be your heroku app name; see README
   app: fang-and-bone
-  # the secure key indicates an encrypted value; see README
   api_key:
     secure: A4RvMVbWRsiqxrysvPAK9hI38WSMXOFuD1srGWG1L9e8B9Y+HM+pU8yo9Ts9eCsR/kHCE6hd55eIYynJlV8SDgMKFhY9wVBz8Yhmol5gJoSCACjgOVf+IAnEuWDWCgpDzjCVLrmCSt47gGCpvquJv+nU5qQ2tDOI+irWCKvxHTEXg0Qo4uwXH4CcBnMAERU0ZSNP+AkstmOjJUe97E/bAvXDFSMBl1NuzLDez8iUZXLhsPsYZ0KF509gjB2Nbws1CIlcZaWVxTVcQo7abNEuiTMttEDwdkdM5OzpUwQmcuOOVfWoHbeI7KpoIJnS3nMgsuRUaIMnQyUt2vC9KBDNVr0Ks5sXK0sIcgVlsU9CvdoNp8Ei1eNH+92yjhKZYlB9Shirqsj8VRzOj0WCk4cqfzkPn/wHCF/nq8Y5u2EXIHaLZmlF6UlkTz9AN1gN6xzwhHOyJ/wZZANQ3U59FxLFWGILzZt5g0mA+monboG4wI6wmzcZ69V4X9rlqjO2rBlU5Zkxp/sFBTUiqQ0f2KHUBGJcKDUUz/WDzWvotsw6jrkwOXE/ahe6cBVHkiOUDf/UCL2m1t9FBz1zHFP8DqCuglr0WSnycM/mG9WMf93VNIeOIB1QFzQu4qLFbEaSr37UB8Rlv5dLQSkHyl3eiC6ZIGIYA44RGJEmhRcLzvmhEFM=
