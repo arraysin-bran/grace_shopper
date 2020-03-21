@@ -23,6 +23,7 @@ button {
   height: 50px;
   border-radius: 5px;
   border-color: rgb(65, 80, 70);
+  background-color: rgb(20, 30, 30);
   color: white;
 }
 
