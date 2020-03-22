@@ -7,7 +7,7 @@ Simulate purchasing items from the Legend of Zelda: Breath of the Wild's favorit
 Visit the deployed app at [http://fang-and-bone.herokuapp.com/](http://fang-and-bone.herokuapp.com/)
 Test User - Email: cody@email.com, Password: 123
 
-[![Build Status](https://travis-ci.org/arraysin-bran/grace_shopper.svg?branch=master)](https://travis-ci.org/arraysin-bran/grace_shopper) [![Coverage Status](https://coveralls.io/repos/github/arraysin-bran/grace_shopper/badge.svg?branch=master)](https://coveralls.io/github/arraysin-bran/grace_shopper?branch=master)
+[![Build Status](https://travis-ci.org/arraysin-bran/grace_shopper.svg?branch=master)](https://travis-ci.org/arraysin-bran/grace_shopper)
 
 ## Technologies Used
 
