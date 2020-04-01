@@ -80,6 +80,37 @@ form div input {
   padding: 0 8px;
 }
 
+.auth-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 10px;
+}
+
+.auth-footer p {
+  margin: 5px;
+  background-color: rgb(20, 30, 30);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 0.75em;
+}
+
+a.external-link {
+  margin: 5px;
+  height: 0%;
+  color: white;
+  background-color: steelblue;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 0.75em;
+}
+
+a.external-link:hover {
+  background-color: blue;
+}
+
 /* SINGLE PRODUCT STYLES */
 .product {
   display: flex;

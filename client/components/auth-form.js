@@ -30,6 +30,15 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
       <a href="/auth/google">{displayName} with Google</a>
+      <div className="auth-footer">
+        <p>Test Email: cody@email.com - Test Pass: 123</p>
+        <a
+          className="external-link"
+          href="https://github.com/arraysin-bran/grace_shopper"
+        >
+          Github
+        </a>
+      </div>
     </div>
   )
 }
