@@ -15,6 +15,7 @@ export class SingleProduct extends Component {
     evt.preventDefault()
     // this.props.addToCart(this.props.match.params.id, this.props.user.userId, this.props.user.loggedIn)
     this.props.addToCart(this.props.match.params.id, this.props.user.id, true)
+    this.props.history.push('/cart')
   }
 
   render() {
