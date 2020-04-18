@@ -44,16 +44,18 @@ router.post('/:userId/:productId', async (req, res, next) => {
         productId: req.params.productId
       }
     })
-    //if not in cart, create it
-    if (!productInCart) {
+    //if in cart, increment
+    if (productInCart) {
+      productInCart.increment('quantity', {by: 1})
+      res.json(productInCart)
+    } else {
+      //if NOT in cart, add it
       const data = await Cart.create({
         status: 'OPEN',
         userId: req.params.userId,
         productId: req.params.productId
       })
       res.json(data)
-    } else {
-      throw new Error('Product already in cart.')
     }
   } catch (error) {
     next(error)
